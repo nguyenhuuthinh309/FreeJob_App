@@ -21,6 +21,9 @@ import com.example.sanphamdemo.RequestAdapter;
 import com.example.sanphamdemo.RequestModel;
 import com.example.sanphamdemo.ThongTinHoaDon;
 import com.example.sanphamdemo.adapter.MyAdapter;
+import com.example.sanphamdemo.hoadoncongty.HoaDonCongTy;
+import com.example.sanphamdemo.hoadoncongty.HoaDonCongTyy;
+import com.example.sanphamdemo.hoadoncongty.Interface_HoaDonCongTy;
 import com.example.sanphamdemo.interfacehoadon.Interface_getlistYeuCau;
 import com.example.sanphamdemo.interfacehoadon.Interfave_AddHoaDon;
 import com.example.sanphamdemo.user.Ban_User;
@@ -42,6 +45,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Admin_DSyeucau_Fragment extends Fragment  {
 
 
+
+
     Interfave_AddHoaDon apiService;
     Button button;
     RequestAdapter adapter1;
@@ -49,10 +54,9 @@ public class Admin_DSyeucau_Fragment extends Fragment  {
     ArrayList<RequestModel> requestList = new ArrayList<>();
 
 
-     RecyclerView recyclerView;
+    RecyclerView recyclerView;
 
     private ArrayList<RequestModel> arrayList = new ArrayList<>();
-
 
 
     public static Admin_DSyeucau_Fragment newInstance() {
@@ -97,6 +101,7 @@ public class Admin_DSyeucau_Fragment extends Fragment  {
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .build();
 
+
         Interface_getlistYeuCau interfaceDelete = retrofit.create(Interface_getlistYeuCau.class);
         Call<List<RequestModel>> call = interfaceDelete.getListYeuCau();
         call.enqueue(new Callback<List<RequestModel>>() {
@@ -132,6 +137,7 @@ public class Admin_DSyeucau_Fragment extends Fragment  {
                 Log.d("zzzzzzzz",t.getMessage());
             }
         });
+
 
 
 

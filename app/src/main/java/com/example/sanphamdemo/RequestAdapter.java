@@ -8,15 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sanphamdemo.fragment.ThongBaoFragment;
+import com.example.sanphamdemo.fragment.ThongtinhoadonFragment;
+import com.example.sanphamdemo.hoadoncongty.HoaDonCongTy;
+import com.example.sanphamdemo.hoadoncongty.HoaDonCongTyy;
+import com.example.sanphamdemo.hoadoncongty.Interface_HoaDonCongTy;
 import com.example.sanphamdemo.interfaceall.Interface_Xoa;
 import com.example.sanphamdemo.interfaceall.Interface_XoaYeuCau;
 import com.example.sanphamdemo.interfacehoadon.Interfave_AddHoaDon;
@@ -26,7 +33,9 @@ import com.example.sanphamdemo.user.Delete_YeuCau;
 import com.example.sanphamdemo.user.ThongBao;
 import com.example.sanphamdemo.userhoadon.AddHoaDon;
 import com.example.sanphamdemo.userhoadon.HoaDon;
+import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,15 +54,14 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
     ThongBao currentItem;
     private ArrayList<RequestModel> arrayList;
 
-    public void setData(ArrayList<RequestModel> arrayList) {
-        this.arrayList = arrayList;
-        notifyDataSetChanged(); // Cập nhật RecyclerView khi dữ liệu thay đổi
-    }
     public RequestAdapter(Context context) {
 
         this.context = context;
     }
-
+    public void setData(ArrayList<RequestModel> arrayList) {
+        this.arrayList = arrayList;
+        notifyDataSetChanged(); // Cập nhật RecyclerView khi dữ liệu thay đổi
+    }
     private List<ThongBao> datathongbao;
 
 
@@ -76,63 +84,69 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+
         RequestModel request = arrayList.get(position);
-        holder.messageTextView.setText("Mã Số Thuế : "+request.getRequestId());
-        int red = ContextCompat.getColor(context, R.color.red);
-        int green = ContextCompat.getColor(context, R.color.green);
-        // Xác nhận yêu cầu khi nhấn nút
-        holder.confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Yêu cầu của id "+request.getRequestId()+" bạn đang chờ xác nhận. Chấp nhận hoặc từ chối?")
-                        .setPositiveButton("Chấp nhận123", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // Người dùng chọn "Chấp nhận", gửi yêu cầu xác nhận lên server
-                                sendConfirmationRequest(request.getRequestId(), true);
-                                holder.confirmButton.setText("Yêu Cầu Đã Được Chấp Nhận");
-                                holder.confirmButton.setBackgroundColor(green);
-                            }
-                        })
-                        .setNegativeButton("Từ chối", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                String a = request.getRequestId();
-                                sendConfirmationRequest(request.getRequestId(), false);
+        if (request != null) {
+            // Thực hiện xử lý khi request không null
+            // Ví dụ: holder.masothuexacnhan.setText("Mã Số Thuế : " + request.getIdHoaDonCongTy());
+            holder.masothuexacnhan.setText("Mã Yêu Cầu : " + request.getRequestId());
 
-                                holder.confirmButton.setText("Yêu Cầu Bị Từ Chối");
-                                holder.confirmButton.setBackgroundColor(red);
-                                // Người dùng chọn "Từ chối", gửi yêu cầu từ chối lên server
-                                // Tạo Retrofit instance
-                                Retrofit retrofit = new Retrofit.Builder()
-                                        .baseUrl("http://192.168.1.2:3000/")
-                                        .addConverterFactory(GsonConverterFactory.create())
-                                        .build();
 
-                                Interface_XoaYeuCau interfaceDelete = retrofit.create(Interface_XoaYeuCau.class);
-                                Call<Delete_YeuCau> call = interfaceDelete.deleteYeucau(a);
+            int red = ContextCompat.getColor(context, R.color.red);
+            int green = ContextCompat.getColor(context, R.color.green);
+            // Xác nhận yêu cầu khi nhấn nút
+            holder.confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("Yêu cầu của id " + request.getRequestId() + " bạn đang chờ xác nhận. Chấp nhận hoặc từ chối?")
+                            .setPositiveButton("Chấp nhận", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // Người dùng chọn "Chấp nhận", gửi yêu cầu xác nhận lên server
+                                    sendConfirmationRequest(request.getRequestId(), true);
+                                    holder.confirm.setText("Yêu Cầu Đã Được Chấp Nhận");
+                                    holder.confirm.setBackgroundColor(green);
+                                }
+                            })
+                            .setNegativeButton("Từ chối", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    String a = String.valueOf(request.getRequestId());
+                                    sendConfirmationRequest(request.getRequestId(), false);
 
-                                call.enqueue(new Callback<Delete_YeuCau>() {
-                                    @Override
-                                    public void onResponse(Call<Delete_YeuCau> call, Response<Delete_YeuCau> response) {
-                                        Delete_YeuCau svrResponseDelete = response.body(); // lay kq tu serrverr
-                                        Toast.makeText(context, "xóa thành công " + svrResponseDelete.getMessage(), Toast.LENGTH_SHORT).show();
-                                        // inteloadData.loadData();
-                                    }
+                                    holder.confirm.setText("Yêu Cầu Bị Từ Chối");
+                                    holder.confirm.setBackgroundColor(red);
+                                    // Người dùng chọn "Từ chối", gửi yêu cầu từ chối lên server
+                                    // Tạo Retrofit instance
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl("http://192.168.1.6:3000/")
+                                            .addConverterFactory(GsonConverterFactory.create())
+                                            .build();
 
-                                    @Override
-                                    public void onFailure(Call<Delete_YeuCau> call, Throwable t) {
-                                        Toast.makeText(context, "xóa thất bại " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                    Interface_XoaYeuCau interfaceDelete = retrofit.create(Interface_XoaYeuCau.class);
+                                    Call<Delete_YeuCau> call = interfaceDelete.deleteYeucau(a);
 
-                                // Gọi sendConfirmationRequest với isAccepted là false
+                                    call.enqueue(new Callback<Delete_YeuCau>() {
+                                        @Override
+                                        public void onResponse(Call<Delete_YeuCau> call, Response<Delete_YeuCau> response) {
+                                            Delete_YeuCau svrResponseDelete = response.body(); // lay kq tu serrverr
+                                            Toast.makeText(context, "xóa thành công " + svrResponseDelete.getMessage(), Toast.LENGTH_SHORT).show();
+                                            // inteloadData.loadData();
+                                        }
 
-                            }
-                        });
-                builder.create().show();
-            }
-        });
+                                        @Override
+                                        public void onFailure(Call<Delete_YeuCau> call, Throwable t) {
+                                            Toast.makeText(context, "xóa thất bại " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
 
+                                    // Gọi sendConfirmationRequest với isAccepted là false
+
+                                }
+                            });
+                    builder.create().show();
+                }
+            });
+        }
     }
 
     @Override
@@ -142,13 +156,28 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView messageTextView;
-        private Button confirmButton;
+//        pivate LinearLayout detailItem;
+         LinearLayout linearHeaderPost;
+         TextView masothuexacnhan;
+         RelativeLayout bgIsNewView;
+         TextView tencongtyxacnhan;
+         TextView thanhtienxacnhan;
+         TextView confirm;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            messageTextView = itemView.findViewById(R.id.messageTextView);
-            confirmButton = itemView.findViewById(R.id.confirmButton);
+
+
+
+
+         //   detailItem = (LinearLayout) itemView.findViewById(R.id.detail_item);
+            linearHeaderPost = (LinearLayout) itemView.findViewById(R.id.linearHeader_post);
+            masothuexacnhan = (TextView) itemView.findViewById(R.id.masothuexacnhan);
+            bgIsNewView = (RelativeLayout) itemView.findViewById(R.id.bg_isNewView);
+            tencongtyxacnhan = (TextView) itemView.findViewById(R.id.tencongtyxacnhan);
+            thanhtienxacnhan = (TextView) itemView.findViewById(R.id.thanhtienxacnhan);
+            confirm = (TextView) itemView.findViewById(R.id.confirm);
+
         }
 
 
@@ -173,8 +202,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
             public void onResponse(Call<RequestModel> call, Response<RequestModel> response) {
                 if (response.isSuccessful()) {
                     // Xử lý khi xác nhận từ server thành công
-         //           handleConfirmationResponse(response.body().getMessage());
+                    //      handleConfirmationResponse(response.body().getMessage());
                     Toast.makeText(context, "Yeu cau duoc chap nhan", Toast.LENGTH_SHORT).show();
+
+
 
 
 
@@ -191,6 +222,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
             }
         });
     }
+
+
 
 
 

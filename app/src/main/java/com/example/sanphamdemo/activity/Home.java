@@ -61,7 +61,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         showInitialFragment();
 
 
-
     }
 
     @SuppressLint("NonConstantResourceId")

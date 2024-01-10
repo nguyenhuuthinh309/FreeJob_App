@@ -115,31 +115,18 @@ public class LapCongTyFragment extends Fragment {
 
 
                  Bundle bundle = new Bundle();
-                 bundle.putString("key", "data_to_pass");
-
-
-
-
                  String masothuegui = masothue.getText().toString();
                  String tengui = tenct.getText().toString();
                  String diachigui = diachi.getText().toString();
                  String linhvucgui = edtLinhVuc.getText().toString();
                  String kihangui = selectedValue;
-
-
-
-
                  bundle.putString("masothue",masothuegui);
                  bundle.putString("tenct", tengui);
                  bundle.putString("diachi", diachigui);
                  bundle.putString("linhvuc", linhvucgui);
                  bundle.putString("kihan", kihangui);
-
                  ThongtinhoadonFragment fragment = new ThongtinhoadonFragment();
                  fragment.setArguments(bundle);
-
-
-
                  FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                  transaction.replace(R.id.container, fragment);
                  transaction.addToBackStack(null); // Để có thể quay lại FragmentA
