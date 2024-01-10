@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.sanphamdemo.R;
 import com.example.sanphamdemo.ThongTinHoaDon;
@@ -58,19 +60,19 @@ public class LapCongTyFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextInputEditText   masothue = (TextInputEditText) view.findViewById(R.id.masothue);
+        EditText masothue =  view.findViewById(R.id.masothue);
 
-        TextInputEditText   tenct = (TextInputEditText) view.findViewById(R.id.tenct);
+        EditText   tenct =  view.findViewById(R.id.tenct);
 
-        TextInputEditText   diachi = (TextInputEditText)  view.findViewById(R.id.diachi);
+        EditText   diachi =   view.findViewById(R.id.diachi);
 
-        TextInputEditText     edtLinhVuc = (TextInputEditText)  view.findViewById(R.id.edtLinhVuc);
+        EditText     edtLinhVuc =   view.findViewById(R.id.edtLinhVuc);
 
      Spinner   caidatbanspinner = (Spinner)  view.findViewById(R.id.caidatbanspinner);
 
     TextView btnCreateCompany = (TextView)  view.findViewById(R.id.btn_create_company);
 
-    ImageView    btnBack = (ImageView)  view.findViewById(R.id.btnBack);
+        //ImageView    btnBack = (ImageView)  view.findViewById(R.id.btnBack);
 
 
 
@@ -110,8 +112,14 @@ public class LapCongTyFragment extends Fragment {
              @Override
              public void onClick(View view) {
 
-                 Intent intent = new Intent(getContext(), ThongTinHoaDon.class);
+
+
                  Bundle bundle = new Bundle();
+                 bundle.putString("key", "data_to_pass");
+
+
+
+
                  String masothuegui = masothue.getText().toString();
                  String tengui = tenct.getText().toString();
                  String diachigui = diachi.getText().toString();
@@ -127,11 +135,15 @@ public class LapCongTyFragment extends Fragment {
                  bundle.putString("linhvuc", linhvucgui);
                  bundle.putString("kihan", kihangui);
 
-                 intent.putExtras(bundle);
-                 startActivity(intent);
+                 ThongtinhoadonFragment fragment = new ThongtinhoadonFragment();
+                 fragment.setArguments(bundle);
 
 
 
+                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                 transaction.replace(R.id.container, fragment);
+                 transaction.addToBackStack(null); // Để có thể quay lại FragmentA
+                 transaction.commit();
              }
          });
 

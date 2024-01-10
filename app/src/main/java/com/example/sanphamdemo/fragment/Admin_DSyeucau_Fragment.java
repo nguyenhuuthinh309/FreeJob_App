@@ -81,7 +81,7 @@ public class Admin_DSyeucau_Fragment extends Fragment  {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        button = (Button) view.findViewById(R.id.button);
+
         recyclerView = view.findViewById(R.id.rec);
 
 
@@ -93,7 +93,7 @@ public class Admin_DSyeucau_Fragment extends Fragment  {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.2:3000/")
+                .baseUrl("http://192.168.1.6:3000/")
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .build();
 

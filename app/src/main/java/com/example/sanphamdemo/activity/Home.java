@@ -4,30 +4,43 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.sanphamdemo.R;
 import com.example.sanphamdemo.fragment.Admin_DSyeucau_Fragment;
 import com.example.sanphamdemo.fragment.HomeFragment;
+import com.example.sanphamdemo.fragment.KhamPhaFragment;
 import com.example.sanphamdemo.fragment.LapCongTyFragment;
+import com.example.sanphamdemo.fragment.MenuFragment;
+import com.example.sanphamdemo.fragment.ProfileFragment;
 import com.example.sanphamdemo.fragment.ThongBaoFragment;
+import com.example.sanphamdemo.fragment.YeuThichFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private Toolbar mToolbar;
-    private FrameLayout frameLayout;
-    private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+    BottomNavigationView bottomNavigationView;
+    private NavigationView navigationView;
+    MenuItem unLockAccItem;
+    MenuItem companyManegeItem;
+    Menu menu;
+    private Toolbar mToolbar;
+
     private static final String TAG = "YourActivity";
 
     private TabLayout tabLayout;
@@ -36,47 +49,48 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+        bind();
         mToolbar = (Toolbar) findViewById(R.id.id_toolbar);
         setSupportActionBar(mToolbar); // add toolbar vào ứng dụng
-        frameLayout = (FrameLayout) findViewById(R.id.id_layoutcontend);
-        drawerLayout = findViewById(R.id.id_drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,mToolbar,0,0);
         toggle.syncState();// tạo nút 3 gạch trên actionbar
-        navigationView = (NavigationView) findViewById(R.id.id_navView);
-        navigationView.setNavigationItemSelectedListener(this);
-        //frameLayout = findViewById(R.id.id_layoutcontend);
-        Log.d(TAG, "onCreate");
-        replaceFragment(HomeFragment.newInstance());
+
+        setupBottomNavigationView();
+        showInitialFragment();
+
+
+
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.homeFragment){
-
+        if (item.getItemId() == R.id.dsbaidang) {
             replaceFragment(HomeFragment.newInstance());
-
-        }
-        if(id == R.id.lapct){
-
+        } else if (item.getItemId() == R.id.lapct) {
             replaceFragment(LapCongTyFragment.newInstance());
-
-        }
-        if(id == R.id.admin_danhsachyeucau){
-
-            replaceFragment(Admin_DSyeucau_Fragment.newInstance());
-
-        }      if(id == R.id.thongbao){
-
+        } else if (item.getItemId() == R.id.thongbao) {
             replaceFragment(ThongBaoFragment.newInstance());
-
+        } else if (item.getItemId() == R.id.admin_danhsachyeucau) {
+            replaceFragment(Admin_DSyeucau_Fragment.newInstance());
         }
-        drawerLayout.closeDrawer(navigationView);
+
+
+
+        item.setCheckable(false);
+
+        // Đóng Navigation Drawer sau khi xử lý sự kiện
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
+        ///////////////////
+
     }
     public void replaceFragment(Fragment fragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.id_layoutcontend,fragment);
+        transaction.replace(R.id.container,fragment);
         transaction.commit();
     }
 
@@ -86,15 +100,63 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         return super.onCreateOptionsMenu(menu);
     }
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id  == R.id.tiengviet){
-            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
-            replaceFragment(HomeFragment.newInstance());
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
-
-        return super.onOptionsItemSelected(item);
     }
+    private void bind(){
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        navigationView = findViewById(R.id.nav_view);
+
+
+
+
+
+        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
+        menu = navigationView.getMenu();
+        unLockAccItem = menu.findItem(R.id.nav_unlock_acc);
+        companyManegeItem = menu.findItem(R.id.nav_company_manege);
+
+
+    }
+
+    private void setupBottomNavigationView() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+    }
+
+    private void showInitialFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            item -> {
+                Fragment selectedFragment = null;
+
+                int itemId = item.getItemId(); // Lưu lại giá trị R.id để sử dụng trong lambda
+
+
+                if (item.getItemId() == R.id.bnav_home) {
+                    selectedFragment = new HomeFragment();
+                } else if (item.getItemId() == R.id.bnav_yeuThich) {
+                    selectedFragment = new YeuThichFragment();
+                } else if (item.getItemId() == R.id.bnav_khamPha) {
+                    selectedFragment = new KhamPhaFragment();
+                } else if (item.getItemId() == R.id.bnav_menu) {
+                    selectedFragment = new ProfileFragment();
+                }
+
+
+                if (selectedFragment != null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, selectedFragment).commit();
+                }
+
+                return true;
+            };
 
     @Override
     protected void onStart() {

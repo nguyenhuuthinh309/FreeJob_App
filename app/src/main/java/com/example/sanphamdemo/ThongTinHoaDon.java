@@ -51,7 +51,6 @@ public class ThongTinHoaDon extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_hoa_don);
 
-        RecyclerView recyclerView = findViewById(R.id.rec);
 
 
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -62,19 +61,15 @@ public class ThongTinHoaDon extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.imageView);
         dathanhtoan = (TextView) findViewById(R.id.dathanhtoan);
-
+       a = findViewById(R.id.a);
         b = (TextView) findViewById(R.id.b);
         c = (TextView) findViewById(R.id.c);
         d = (TextView) findViewById(R.id.d);
         e = (TextView) findViewById(R.id.e);
-        f = (TextView) findViewById(R.id.f);
 
 
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-     //   adapter.setdata(requestList);
-        recyclerView.setAdapter(adapter);
+
 
 
         Bundle bundle = getIntent().getExtras();
@@ -83,7 +78,7 @@ public class ThongTinHoaDon extends AppCompatActivity {
         String diachi = bundle.getString("diachi");
         String linhvuc = bundle.getString("linhvuc");
         String kihan = bundle.getString("kihan");
-
+ a.setText(msthue);
              b.setText(tenct);
              c.setText(diachi);
              d.setText(linhvuc);

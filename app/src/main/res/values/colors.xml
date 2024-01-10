@@ -13,7 +13,8 @@
     <color name="colorAccent">#ffffff</color>
     <color name="bg_post">#33000AFF</color>
     <color name="bg_post_dark">#33000353</color>
-
+    #87CEFA
+    <color name="lightskyblue">#87CEFA </color>
     <color name="orange">#F05123</color>
     <color name="colorGrey">#616161</color>
     <color name="color_main_app">#204B9D</color>

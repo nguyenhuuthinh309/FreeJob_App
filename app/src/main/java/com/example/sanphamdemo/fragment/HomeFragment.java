@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.example.sanphamdemo.R;
 import com.example.sanphamdemo.adapter.AdapterItem;
 
 import com.example.sanphamdemo.adapter.Adapter_of_ViewPage;
+import com.example.sanphamdemo.adapter.HomeSliderAdapter;
 import com.example.sanphamdemo.adapter.MyAdapter;
 import com.example.sanphamdemo.interfaceall.Interface_ListBan;
 import com.example.sanphamdemo.user.Ban_User;
@@ -42,7 +45,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeFragment extends Fragment {
-
+    private HomeSliderAdapter sliderAdapter;
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private Runnable runnable;
     LinearLayout linearLayout6;
     ViewPager2 viewPagerSlide;
     ImageView textView18;
@@ -103,12 +108,7 @@ public class HomeFragment extends Fragment {
         textView18 = (ImageView) view.findViewById(R.id.textView18);
         textView19 = (ImageView) view.findViewById(R.id.textView19);
         linearMore = (LinearLayout) view.findViewById(R.id.linearMore);
-        relativeCty = (RelativeLayout) view.findViewById(R.id.relative_Cty);
-        imgCty = (ImageView) view.findViewById(R.id.img_cty);
-        relativeViecLam = (RelativeLayout) view.findViewById(R.id.relative_ViecLam);
-        imgViecLam = (ImageView) view.findViewById(R.id.img_viecLam);
-        relativeLuong = (RelativeLayout) view.findViewById(R.id.relative_Luong);
-        imgLuong = (ImageView) view.findViewById(R.id.img_luong);
+
         tvTitleViecTot = (TextView) view.findViewById(R.id.tvTitle_viecTot);
         recyclerView_ViecTot = (RecyclerView) view.findViewById(R.id.recyclerView_viecTot);
 
@@ -133,7 +133,7 @@ public class HomeFragment extends Fragment {
     private void loadbaidang() {
         // Tạo Retrofit instance
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.2:3000/") // Điền địa chỉ cơ sở của API của bạn
+                .baseUrl("http://192.168.1.6:3000/") // Điền địa chỉ cơ sở của API của bạn
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -168,5 +168,22 @@ public class HomeFragment extends Fragment {
                 R.drawable.card_image_3,
                 R.drawable.card_image_4
         );
+
+        sliderAdapter = new HomeSliderAdapter(imageList);
+        viewPagerSlide.setAdapter(sliderAdapter);
+
+        // Auto chuyển đổi slide mỗi 3 giây
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                int currentItem = viewPagerSlide.getCurrentItem();
+                int totalItems = imageList.size();
+                int nextItem = (currentItem + 1) % totalItems;
+                viewPagerSlide.setCurrentItem(nextItem);
+                handler.postDelayed(this, 3000); // 3000 milliseconds = 3 seconds
+            }
+        };
+        // Khởi động auto chuyển đổi
+        handler.postDelayed(runnable, 3000); // 3000 milliseconds = 3 seconds
     }
 }

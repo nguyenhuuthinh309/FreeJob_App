@@ -1,5 +1,25 @@
 <resources>
-    <string name="app_name">SanPhamDemo</string>
+    <string name="app_name">JobFree</string>
+    <string name="micsearch">MicSearch</string>
+    <string name="profile">Hồ sơ của tôi</string>
+    <string name="make_cv">Làm CV online</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="unlock_acc">Mở tài khoản doanh nghiệp</string>
+    <string name="company_manege">Trang doanh nghiệp</string>
+    <string name="change_pass">Đổi mật khẩu</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="card_numbering">1/5</string>
+    <string name="heading">Heading</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="unlock_message">- Để mở tài khoản doanh nghiệp bạn cần 100 JCoin tương đương với 100.000 VND để kích hoạt tài khoản doanh nghiệp.</string>
+    <string name="unlock_message_show_more">- Mục đích của khoản tiền yêu cầu này để đề phòng các hành vi lừa đảo, tiêu cực đồng thời sẽ là kinh phí giúp đội ngũ kĩ thuật phát triển các tính năng mới trong tương lai. Mong muốn mang lại cho bạn một trải nghiệm ứng dụng tốt nhất </string>
+    <string name="chuc_nang_unlock">- Khi mở tài khoản danh nghiệp bạn có thể tạo ra trang doanh nghiệp của mình nhằm mục đích cho nhiều người biết tới, quan trọng hơn bạn có thể đăng bài tuyển dụng để có thể tuyển được nhân viên theo yêu cầu, mong muốn của chính bạn, bạn có thể xem danh sách các ứng viên đã ứng tuyển vào công việc đó từ đó đưa ra quyết định, thêm vào đó sẽ còn nhiều chức năng khác chờ bạn khám phá.</string>
+
+    <string name="facebook_application_id" translatable="false">1531975134011273</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb1531975134011273</string>
+    <string name="facebook_client_token" translatable="false">1531975134011273|_iBKe95THrfl8vXCSUf0SM1cF4E</string>
 </resources>
