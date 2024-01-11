@@ -1,8 +1,6 @@
 package com.example.sanphamdemo.user;
 
 
-import com.example.sanphamdemo.ServerResponse;
-
 public class Delete_YeuCau {
     private ServerResponse YeuCau;
 

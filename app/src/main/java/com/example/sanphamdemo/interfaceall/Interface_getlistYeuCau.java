@@ -1,8 +1,6 @@
-package com.example.sanphamdemo.interfacehoadon;
+package com.example.sanphamdemo.interfaceall;
 
-import com.example.sanphamdemo.RequestModel;
-import com.example.sanphamdemo.hoadoncongty.HoaDonCongTy;
-import com.example.sanphamdemo.user.Ban_User;
+import com.example.sanphamdemo.user.RequestModel;
 
 import java.util.List;
 

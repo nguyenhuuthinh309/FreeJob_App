@@ -1,4 +1,4 @@
-package com.example.sanphamdemo.userhoadon;
+package com.example.sanphamdemo.user;
 
 public class HoaDon {
     int idHoaDon,idUngVien,idCongTy;

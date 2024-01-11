@@ -71,11 +71,11 @@ public class Test extends AppCompatActivity {
                 prd.setTen(updateten);
                 prd.setTrangthai(trangthai1);
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.1.2:3000/")
+                        .baseUrl("http://192.168.1.6:3000/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 Interface_Sua interfaceUpdate = retrofit.create(Interface_Sua.class);
-                Call<UpdateBan> call = interfaceUpdate.updateBan(333,"thinh123444",12344);
+                Call<UpdateBan> call = interfaceUpdate.updateBan(prd.getId(),5);
 
                 call.enqueue(new Callback<UpdateBan>() {
                     @Override

@@ -29,6 +29,7 @@ import com.example.sanphamdemo.adapter.AdapterItem;
 import com.example.sanphamdemo.adapter.Adapter_of_ViewPage;
 import com.example.sanphamdemo.adapter.HomeSliderAdapter;
 import com.example.sanphamdemo.adapter.MyAdapter;
+import com.example.sanphamdemo.adapter.YourResponseClass;
 import com.example.sanphamdemo.interfaceall.Interface_ListBan;
 import com.example.sanphamdemo.user.Ban_User;
 import com.google.android.material.tabs.TabLayout;
@@ -58,8 +59,8 @@ public class HomeFragment extends Fragment {
     RelativeLayout relativeViecLam;
     ImageView imgViecLam;
     RelativeLayout relativeLuong;
-    ImageView imgLuong;
-    TextView tvTitleViecTot;
+    ImageView imgLuong,imagesearch;
+    TextView tvTitleViecTot,textsearch;
     RecyclerView recyclerView_ViecTot;
 
 
@@ -70,9 +71,10 @@ public class HomeFragment extends Fragment {
    // AdapterItem adapter1;
     private GridView gridView;
     private ArrayList<Ban_User> arrayList = new ArrayList<>();
+    private List<YourResponseClass> arrayList3 = new ArrayList<>();
      MyAdapter adapter1;
 
-
+    private ArrayList<Ban_User> arrayList2 = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -106,9 +108,9 @@ public class HomeFragment extends Fragment {
         linearLayout6 = (LinearLayout) view.findViewById(R.id.linearLayout6);
         viewPagerSlide = (ViewPager2) view.findViewById(R.id.viewPagerSlide);
         textView18 = (ImageView) view.findViewById(R.id.textView18);
-        textView19 = (ImageView) view.findViewById(R.id.textView19);
+        imagesearch = (ImageView) view.findViewById(R.id.imagesearch);
         linearMore = (LinearLayout) view.findViewById(R.id.linearMore);
-
+        textsearch = (TextView) view.findViewById(R.id.textsearch);
         tvTitleViecTot = (TextView) view.findViewById(R.id.tvTitle_viecTot);
         recyclerView_ViecTot = (RecyclerView) view.findViewById(R.id.recyclerView_viecTot);
 
@@ -120,7 +122,7 @@ public class HomeFragment extends Fragment {
         recyclerView_ViecTot.setLayoutManager(linearLayoutManager2);
         recyclerView_ViecTot.setAdapter(adapter1);
 
-
+String edit = textsearch.getText().toString();
 
 
 
@@ -141,7 +143,7 @@ public class HomeFragment extends Fragment {
         Interface_ListBan apiService = retrofit.create(Interface_ListBan.class);
 
         // Gọi API để lấy dữ liệu
-        Call<List<Ban_User>> call = apiService.getListProduct1();
+        Call<List<Ban_User>> call = apiService.getListProductlike();
         call.enqueue(new Callback<List<Ban_User>>() {
             @Override
             public void onResponse(Call<List<Ban_User>> call, Response<List<Ban_User>> response) {

@@ -1,4 +1,4 @@
-package com.example.sanphamdemo;
+package com.example.sanphamdemo.interfaceall;
 
 import androidx.recyclerview.widget.RecyclerView;
 

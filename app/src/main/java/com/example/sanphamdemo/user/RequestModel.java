@@ -1,8 +1,13 @@
-package com.example.sanphamdemo;
+package com.example.sanphamdemo.user;
 
-public class  RequestModel {
+import java.io.Serializable;
+
+public class  RequestModel implements Serializable {
     private String requestId;
     private String message;
+
+    private String tencongty;
+    private String giatien;
     private boolean isConfirmed;
 
 
@@ -14,7 +19,13 @@ public class  RequestModel {
 
     }
 
+    public String getTencongty() {
+        return tencongty;
+    }
 
+    public String getGiatien() {
+        return giatien;
+    }
 
     public String getRequestId() {
         return requestId;

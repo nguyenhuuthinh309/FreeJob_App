@@ -1,14 +1,48 @@
 package com.example.sanphamdemo.user;
 
-public class Ban_User {
-    private Integer id;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class Ban_User implements Serializable {
+    private int id;
+ //   @SerializedName("ten")
     private String ten;
+    @SerializedName("giovao")
     private String giovao;
-    private Integer gia;
-    private Integer trangthai;
+  //  @SerializedName("gia")
+    private int gia;
+ ///  @SerializedName("trangthai")
+    private int trangthai;
+ //   @SerializedName("ngaythang")
     private String ngaythang;
 
-    public Ban_User(Integer id, String ten, String giovao, Integer gia, Integer trangthai, String ngaythang) {
+    String ngaytao;
+
+    public String getNgaytao() {
+        return ngaytao;
+    }
+
+    public void setNgaytao(String ngaytao) {
+        this.ngaytao = ngaytao;
+    }
+
+    public Ban_User() {
+    }
+
+    public Ban_User(String giovao) {
+        this.giovao = giovao;
+    }
+
+    public Ban_User(String ten, String giovao, int gia, int trangthai, String ngaythang) {
+        this.ten = ten;
+        this.giovao = giovao;
+        this.gia = gia;
+        this.trangthai = trangthai;
+        this.ngaythang = ngaythang;
+    }
+
+    public Ban_User(int id, String ten, String giovao, int gia, int trangthai, String ngaythang) {
         this.id = id;
         this.ten = ten;
         this.giovao = giovao;
@@ -17,21 +51,11 @@ public class Ban_User {
         this.ngaythang = ngaythang;
     }
 
-    public Ban_User(Integer id, String ten, Integer trangthai) {
-        this.id = id;
-        this.ten = ten;
-        this.trangthai = trangthai;
-    }
-
-    public Ban_User() {
-
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -51,19 +75,19 @@ public class Ban_User {
         this.giovao = giovao;
     }
 
-    public Integer getGia() {
+    public int getGia() {
         return gia;
     }
 
-    public void setGia(Integer gia) {
+    public void setGia(int gia) {
         this.gia = gia;
     }
 
-    public Integer getTrangthai() {
+    public int getTrangthai() {
         return trangthai;
     }
 
-    public void setTrangthai(Integer trangthai) {
+    public void setTrangthai(int trangthai) {
         this.trangthai = trangthai;
     }
 

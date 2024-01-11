@@ -1,4 +1,4 @@
-package com.example.sanphamdemo.hoadoncongty;
+package com.example.sanphamdemo.user;
 
 public class HoaDonCongTyy {
 
@@ -15,6 +15,10 @@ public class HoaDonCongTyy {
             this.trangThai = trangThai;
             this.thanhTien = thanhTien;
         }
+
+    public HoaDonCongTyy(int idHoaDonCongTy) {
+        this.idHoaDonCongTy = idHoaDonCongTy;
+    }
 
     public int getIdHoaDonCongTy() {
         return idHoaDonCongTy;

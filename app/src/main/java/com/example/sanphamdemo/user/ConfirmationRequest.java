@@ -1,4 +1,4 @@
-package com.example.sanphamdemo;
+package com.example.sanphamdemo.user;
 
 public class ConfirmationRequest {
     private String message;

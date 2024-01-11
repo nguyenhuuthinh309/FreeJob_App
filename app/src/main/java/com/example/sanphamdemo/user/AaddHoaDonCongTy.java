@@ -1,7 +1,7 @@
-package com.example.sanphamdemo.hoadoncongty;
+package com.example.sanphamdemo.user;
 
 
-
+import com.example.sanphamdemo.user.HoaDonCongTyy;
 
 public class AaddHoaDonCongTy {
     private HoaDonCongTyy HoaDonCongTy;

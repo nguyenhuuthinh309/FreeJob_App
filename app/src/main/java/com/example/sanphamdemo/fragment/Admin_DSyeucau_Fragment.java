@@ -13,22 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sanphamdemo.DataListenerThongBao;
 import com.example.sanphamdemo.R;
-import com.example.sanphamdemo.RequestAdapter;
-import com.example.sanphamdemo.RequestModel;
-import com.example.sanphamdemo.ThongTinHoaDon;
-import com.example.sanphamdemo.adapter.MyAdapter;
-import com.example.sanphamdemo.hoadoncongty.HoaDonCongTy;
-import com.example.sanphamdemo.hoadoncongty.HoaDonCongTyy;
-import com.example.sanphamdemo.hoadoncongty.Interface_HoaDonCongTy;
-import com.example.sanphamdemo.interfacehoadon.Interface_getlistYeuCau;
-import com.example.sanphamdemo.interfacehoadon.Interfave_AddHoaDon;
-import com.example.sanphamdemo.user.Ban_User;
-import com.example.sanphamdemo.user.ThongBao;
-import com.example.sanphamdemo.userhoadon.AddHoaDon;
+import com.example.sanphamdemo.adapter.RequestAdapter;
+import com.example.sanphamdemo.user.RequestModel;
+import com.example.sanphamdemo.interfaceall.Interface_getlistYeuCau;
+import com.example.sanphamdemo.interfaceall.Interfave_AddHoaDon;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
@@ -52,7 +44,7 @@ public class Admin_DSyeucau_Fragment extends Fragment  {
     RequestAdapter adapter1;
 
     ArrayList<RequestModel> requestList = new ArrayList<>();
-
+    TextView textView;
 
     RecyclerView recyclerView;
 
@@ -87,7 +79,7 @@ public class Admin_DSyeucau_Fragment extends Fragment  {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.rec);
-
+       textView = view.findViewById(R.id.tv);
 
         adapter1 = new RequestAdapter(getContext());
         adapter1.setData(arrayList);
@@ -112,9 +104,14 @@ public class Admin_DSyeucau_Fragment extends Fragment  {
                     // Xử lý dữ liệu khi nhận được
                     List<RequestModel> responseData = response.body();
 
-                    // Cập nhật dataList và thông báo thay đổi trong Adapter
                     arrayList.addAll(responseData);
                     adapter1.notifyDataSetChanged();
+                    // Cập nhật dataList và thông báo thay đổi trong Adapter
+
+                    if (arrayList.size() == 0){
+                        textView.setText("Không có yêu cầu mở công ty nào!");
+                    }
+
 
 
 

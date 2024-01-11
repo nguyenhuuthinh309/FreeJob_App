@@ -1,12 +1,10 @@
-package com.example.sanphamdemo.userhoadon;
-
-
+package com.example.sanphamdemo.user;
 
 
 public class AddHoaDon {
 
     private String requestId;
-    private HoaDon HoaDon;
+    private com.example.sanphamdemo.user.HoaDon HoaDon;
     //khong duoc viet sai ten bang
     private String message;
 

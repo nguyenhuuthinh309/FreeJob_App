@@ -1,13 +1,10 @@
-package com.example.sanphamdemo;
+package com.example.sanphamdemo.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,26 +13,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sanphamdemo.fragment.ThongBaoFragment;
-import com.example.sanphamdemo.fragment.ThongtinhoadonFragment;
-import com.example.sanphamdemo.hoadoncongty.HoaDonCongTy;
-import com.example.sanphamdemo.hoadoncongty.HoaDonCongTyy;
-import com.example.sanphamdemo.hoadoncongty.Interface_HoaDonCongTy;
-import com.example.sanphamdemo.interfaceall.Interface_Xoa;
+import com.example.sanphamdemo.R;
+import com.example.sanphamdemo.user.RequestModel;
+import com.example.sanphamdemo.user.ConfirmationRequest;
+import com.example.sanphamdemo.user.HoaDonCongTyy;
+import com.example.sanphamdemo.interfaceall.Interface_HoaDonCongTy;
 import com.example.sanphamdemo.interfaceall.Interface_XoaYeuCau;
-import com.example.sanphamdemo.interfacehoadon.Interfave_AddHoaDon;
-import com.example.sanphamdemo.user.Ban_User;
-import com.example.sanphamdemo.user.DeleteBan;
+import com.example.sanphamdemo.interfaceall.Interfave_AddHoaDon;
 import com.example.sanphamdemo.user.Delete_YeuCau;
 import com.example.sanphamdemo.user.ThongBao;
-import com.example.sanphamdemo.userhoadon.AddHoaDon;
-import com.example.sanphamdemo.userhoadon.HoaDon;
-import com.google.gson.GsonBuilder;
+import com.example.sanphamdemo.user.AddHoaDon;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +43,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
      Context context;
     ThongBao currentItem;
     private ArrayList<RequestModel> arrayList;
-
+    RequestModel request;
     public RequestAdapter(Context context) {
 
         this.context = context;
@@ -85,16 +75,23 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
 
-        RequestModel request = arrayList.get(position);
+         request = arrayList.get(position);
         if (request != null) {
             // Thực hiện xử lý khi request không null
             // Ví dụ: holder.masothuexacnhan.setText("Mã Số Thuế : " + request.getIdHoaDonCongTy());
             holder.masothuexacnhan.setText("Mã Yêu Cầu : " + request.getRequestId());
+                holder.tencongtyxacnhan.setText(request.getTencongty());
+                holder.thanhtienxacnhan.setText(request.getGiatien());
+           holder.detail_item.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
 
-
+               }
+           });
             int red = ContextCompat.getColor(context, R.color.red);
             int green = ContextCompat.getColor(context, R.color.green);
             // Xác nhận yêu cầu khi nhấn nút
+           
             holder.confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -149,6 +146,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
         }
     }
 
+
+
     @Override
     public int getItemCount() {
         return arrayList.size();
@@ -156,7 +155,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-//        pivate LinearLayout detailItem;
+       LinearLayout detail_item;
          LinearLayout linearHeaderPost;
          TextView masothuexacnhan;
          RelativeLayout bgIsNewView;
@@ -172,6 +171,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
 
          //   detailItem = (LinearLayout) itemView.findViewById(R.id.detail_item);
             linearHeaderPost = (LinearLayout) itemView.findViewById(R.id.linearHeader_post);
+            detail_item = (LinearLayout) itemView.findViewById(R.id.detail_item);
             masothuexacnhan = (TextView) itemView.findViewById(R.id.masothuexacnhan);
             bgIsNewView = (RelativeLayout) itemView.findViewById(R.id.bg_isNewView);
             tencongtyxacnhan = (TextView) itemView.findViewById(R.id.tencongtyxacnhan);
@@ -190,7 +190,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
     private void sendConfirmationRequest(String requestId, boolean isAccepted) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.2:3000/") // Địa chỉ của server
+                .baseUrl("http://192.168.1.6:3000/") // Địa chỉ của server
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -205,8 +205,59 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
                     //      handleConfirmationResponse(response.body().getMessage());
                     Toast.makeText(context, "Yeu cau duoc chap nhan", Toast.LENGTH_SHORT).show();
 
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://192.168.1.6:3000/") // Địa chỉ của server
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                   Interface_HoaDonCongTy apiService = retrofit.create(Interface_HoaDonCongTy.class);
+
+                    Call<HoaDonCongTyy> call1 = apiService.updateHoaDon(Integer.parseInt(request.getRequestId()));
+                    call1.enqueue(new Callback<HoaDonCongTyy>() {
+                        @Override
+                        public void onResponse(Call<HoaDonCongTyy> call1, Response<HoaDonCongTyy> response) {
+                            if (response.isSuccessful()) {
+                                // Xử lý khi xác nhận từ server thành công
+                                //      handleConfirmationResponse(response.body().getMessage());
+                                Toast.makeText(context, "Yeu cau duoc chap nhan", Toast.LENGTH_SHORT).show();
 
 
+
+                            } else {
+                                // Xử lý lỗi khi xác nhận từ server
+                                showToast("Có lỗi xảy ra khi xác nhận yêu cầu.");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<HoaDonCongTyy> call1, Throwable t) {
+                            // Xử lý lỗi kết nối
+                            showToast("Lỗi kết nối đến server.");
+                        }
+                    });
+
+
+                    Retrofit retrofit2 = new Retrofit.Builder()
+                            .baseUrl("http://192.168.1.6:3000/")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    Interface_XoaYeuCau interfaceDelete = retrofit2.create(Interface_XoaYeuCau.class);
+                    Call<Delete_YeuCau> call5 = interfaceDelete.deleteYeucau(request.getRequestId());
+
+                    call5.enqueue(new Callback<Delete_YeuCau>() {
+                        @Override
+                        public void onResponse(Call<Delete_YeuCau> call5, Response<Delete_YeuCau> response) {
+                            Delete_YeuCau svrResponseDelete = response.body(); // lay kq tu serrverr
+                            Toast.makeText(context, "xóa thành công " + svrResponseDelete.getMessage(), Toast.LENGTH_SHORT).show();
+                            // inteloadData.loadData();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Delete_YeuCau> call, Throwable t) {
+                            Toast.makeText(context, "xóa thất bại " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
 
                 } else {
@@ -216,7 +267,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
             }
 
             @Override
-            public void onFailure(Call<RequestModel> call, Throwable t) {
+            public void onFailure(Call<RequestModel> call5, Throwable t) {
                 // Xử lý lỗi kết nối
                 showToast("Lỗi kết nối đến server.");
             }

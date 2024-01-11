@@ -10,11 +10,6 @@ import retrofit2.http.POST;
 
 public interface Interface_Sua {
     @FormUrlEncoded
-    @POST("api/updateitemban/:id")
-    Call<UpdateBan> updateBan(@Field("id") int id, @Field("ten") String ten, @Field("trangthai") int trangthai );
-
-
-
-
-
+    @POST("api/updateitembanlike/:id")
+    Call<UpdateBan> updateBan(@Field("id") int id,@Field("trangthai") int trangthai );
 }

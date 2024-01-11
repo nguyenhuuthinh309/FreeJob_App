@@ -118,8 +118,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
         menu = navigationView.getMenu();
-        unLockAccItem = menu.findItem(R.id.nav_unlock_acc);
-        companyManegeItem = menu.findItem(R.id.nav_company_manege);
+
 
 
     }

@@ -1,8 +1,10 @@
-package com.example.sanphamdemo;
+package com.example.sanphamdemo.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.sanphamdemo.R;
 
 public class ProfileActivity extends AppCompatActivity {
 

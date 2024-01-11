@@ -14,12 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.sanphamdemo.AdapterThongbao;
-import com.example.sanphamdemo.DataListenerThongBao;
+import com.example.sanphamdemo.interfaceall.DataListenerThongBao;
 import com.example.sanphamdemo.R;
-import com.example.sanphamdemo.RequestAdapter;
-import com.example.sanphamdemo.adapter.MyAdapter;
-import com.example.sanphamdemo.user.Ban_User;
+import com.example.sanphamdemo.adapter.RequestAdapter;
 import com.example.sanphamdemo.user.ThongBao;
 
 import java.util.ArrayList;

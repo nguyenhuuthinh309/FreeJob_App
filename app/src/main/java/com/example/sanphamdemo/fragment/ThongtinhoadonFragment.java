@@ -1,13 +1,10 @@
 package com.example.sanphamdemo.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -18,21 +15,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sanphamdemo.R;
-import com.example.sanphamdemo.RequestAdapter;
-import com.example.sanphamdemo.ServerResponse;
-import com.example.sanphamdemo.ThongTinHoaDon;
-import com.example.sanphamdemo.activity.Home;
-import com.example.sanphamdemo.hoadoncongty.AaddHoaDonCongTy;
-import com.example.sanphamdemo.hoadoncongty.HoaDonCongTy;
-import com.example.sanphamdemo.hoadoncongty.HoaDonCongTyy;
-import com.example.sanphamdemo.hoadoncongty.Interface_HoaDonCongTy;
-import com.example.sanphamdemo.interfacehoadon.Interface_AddYeucau;
+import com.example.sanphamdemo.adapter.RequestAdapter;
+import com.example.sanphamdemo.user.ServerResponse;
+import com.example.sanphamdemo.user.HoaDonCongTyy;
+import com.example.sanphamdemo.interfaceall.Interface_HoaDonCongTy;
+import com.example.sanphamdemo.interfaceall.Interface_AddYeucau;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -156,9 +148,20 @@ public class ThongtinhoadonFragment extends Fragment {
                  diachi = bundle.getString("diachi");
                  linhvuc = bundle.getString("linhvuc");
                  kihan = bundle.getString("kihan");
+                 String giatien1="0";
+                 if (kihan.equals("1 Tháng")){
+                     giatien1 = "85.000";
+
+                 } else  if (kihan.equals("3 Tháng")){
+                    giatien1 = "150.000";
+
+                }else{
+                     giatien1 = "220.000";
+                 }
 
 
                 String requestId = msthue ;
+                 String tenctyeucau = tenct;
                 String trangthai = "0";
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("http://192.168.1.6:3000/")
@@ -166,7 +169,7 @@ public class ThongtinhoadonFragment extends Fragment {
                         .build();
 
                 Interface_AddYeucau interfaceDelete = retrofit.create(Interface_AddYeucau.class);
-                Call<ServerResponse> call = interfaceDelete.addYeuCau(requestId,trangthai);
+                Call<ServerResponse> call = interfaceDelete.addYeuCau(requestId,trangthai,tenctyeucau,giatien1);
                 call.enqueue(new Callback<ServerResponse>() {
                     @Override
                     public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {

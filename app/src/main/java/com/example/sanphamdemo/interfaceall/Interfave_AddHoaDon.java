@@ -1,10 +1,8 @@
-package com.example.sanphamdemo.interfacehoadon;
+package com.example.sanphamdemo.interfaceall;
 
-import com.example.sanphamdemo.ConfirmationRequest;
-import com.example.sanphamdemo.RequestModel;
-import com.example.sanphamdemo.ServerResponse;
-import com.example.sanphamdemo.userhoadon.AddHoaDon;
-import com.example.sanphamdemo.userhoadon.HoaDon;
+import com.example.sanphamdemo.user.ConfirmationRequest;
+import com.example.sanphamdemo.user.RequestModel;
+import com.example.sanphamdemo.user.AddHoaDon;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

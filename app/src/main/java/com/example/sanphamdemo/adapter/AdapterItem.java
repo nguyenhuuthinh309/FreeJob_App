@@ -11,8 +11,12 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.sanphamdemo.R;
 import com.example.sanphamdemo.activity.ThucDonBan;
+import com.example.sanphamdemo.fragment.DetailProfileFragment;
+import com.example.sanphamdemo.fragment.ProfileFragment;
 import com.example.sanphamdemo.user.Ban_User;
 
 import java.util.List;
@@ -31,6 +35,10 @@ public class AdapterItem extends BaseAdapter {
     }
 
     public AdapterItem() {
+    }
+    public static ProfileFragment newInstance() {
+        ProfileFragment fragment = new ProfileFragment();
+        return fragment;
     }
 
     @Override
@@ -74,88 +82,19 @@ public class AdapterItem extends BaseAdapter {
 
 
         }
-//        holder.detail_item.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                Dialog dialogEdit = new Dialog(context);
-//                dialogEdit.setContentView(R.layout.dialogupdate);
-//
-//
-//                ;
-//
-//                TextView     textView7 = (TextView) dialogEdit.findViewById(R.id.textView7);
-//                LinearLayout   linearLayout = (LinearLayout)  dialogEdit.findViewById(R.id.linearLayout);
-//                EditText updatehoten = (EditText)  dialogEdit.findViewById(R.id.updatehoten);
-//                TextView   textView2 = (TextView)  dialogEdit.findViewById(R.id.textView2);
-//                EditText   updatetrangthai = (EditText)  dialogEdit.findViewById(R.id.updatetrangthai);
-//                Button btneditHV = (Button)  dialogEdit.findViewById(R.id.btnedit_HV);
-//                Button   btnHuyEditHV = (Button)  dialogEdit.findViewById(R.id.btnHuyEditHV);
-//
-//
-//
-//
-//
-////                updatehoten.setText(data.getTen());
-////                updatetrangthai.setText(data.getTrangthai());
-//
-//                String tenn = updatehoten.getText().toString();
-//                String tt = updatetrangthai.getText().toString();
-//                btneditHV.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//
-//
-//                        data.setTen(tenn);
-//
-//                        data.setTrangthai(122);
-//
-//                        Retrofit retrofit = new Retrofit.Builder()
-//                                .baseUrl("http://192.168.1.2:3000/")
-//                                .addConverterFactory(GsonConverterFactory.create())
-//                                .build();
-//                        Interface_Sua interfaceUpdate = retrofit.create(Interface_Sua.class);
-//                        Call<DeleteBan> call = interfaceUpdate.updateBan(1008,"thinhupdate",13);
-//
-//                        call.enqueue(new Callback<DeleteBan>() {
-//                            @Override
-//                            public void onResponse(Call<DeleteBan> call, Response<DeleteBan> response) {
-//                                DeleteBan svrResponseUpdate = response.body();
-//
-//                                Toast.makeText(context, "Đã sửa thành công!!!"+svrResponseUpdate.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<DeleteBan> call, Throwable t) {
-//
-//                                Toast.makeText(context, "Đã lỗi sửa!!!"+t.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//
-//                        dialogEdit.dismiss();
-//                    }
-//                });
-//                btnHuyEditHV.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialogEdit.dismiss();
-//                    }
-//                });
-//                dialogEdit.show();
-//                Toast.makeText(context, "ccc", Toast.LENGTH_SHORT).show();
-//                return false;
-//            }
-//        });
+
         holder.detail_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Intent intent = new Intent(context, ThucDonBan.class);
                 Bundle bundle = new Bundle();
                 int idxoa = dataList.get(i).getId();
                  String ten  =dataList.get(i).getTen();
                 String giovao = dataList.get(i).getGiovao();
-                int gia = dataList.get(i).getGia();
-                int trangthai = dataList.get(i).getTrangthai();
+                String gia = String.valueOf(dataList.get(i).getGia());
+                String trangthai = String.valueOf(dataList.get(i).getTrangthai());
                 String ngaythang  =dataList.get(i).getNgaythang();
 
 

@@ -1,4 +1,6 @@
-package com.example.sanphamdemo.hoadoncongty;
+package com.example.sanphamdemo.interfaceall;
+
+import com.example.sanphamdemo.user.HoaDonCongTyy;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -20,6 +22,8 @@ public interface Interface_HoaDonCongTy {
            @Field("trangThai") String trangThai,
             @Field("thanhTien") String thanhTien);
 
-
+    @FormUrlEncoded
+    @POST("/api/updatetrangthaihoadon/:idHoaDonCongTy")
+    Call<HoaDonCongTyy> updateHoaDon(@Field("idHoaDonCongTy") int idHoaDonCongTy );
 
 }

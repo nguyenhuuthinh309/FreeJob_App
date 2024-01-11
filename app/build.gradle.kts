@@ -46,6 +46,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation ("de.hdodenhof:circleimageview:2.2.0")
+
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
    // implementation ("com.github.arimorty:floatingsearchview:2.1.1") // Phiên bản cụ thể bạn đang sử dụng
 
 // Hoặc sử dụng phiên bản mới nhất (điều này cần kiểm tra phiên bản mới nhất trên GitHub hoặc Maven Central)

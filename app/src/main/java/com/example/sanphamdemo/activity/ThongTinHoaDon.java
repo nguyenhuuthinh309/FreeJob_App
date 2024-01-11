@@ -1,32 +1,22 @@
-package com.example.sanphamdemo;
+package com.example.sanphamdemo.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sanphamdemo.activity.Test;
-import com.example.sanphamdemo.fragment.Admin_DSyeucau_Fragment;
-import com.example.sanphamdemo.interfaceall.Interface_Sua;
-import com.example.sanphamdemo.interfacehoadon.Interface_AddYeucau;
-import com.example.sanphamdemo.interfacehoadon.Interfave_AddHoaDon;
-import com.example.sanphamdemo.user.Ban_User;
-import com.example.sanphamdemo.user.UpdateBan;
-import com.example.sanphamdemo.userhoadon.AddHoaDon;
-import com.example.sanphamdemo.userhoadon.HoaDon;
+import com.example.sanphamdemo.R;
+import com.example.sanphamdemo.adapter.RequestAdapter;
+import com.example.sanphamdemo.interfaceall.Interface_AddYeucau;
+import com.example.sanphamdemo.user.ServerResponse;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -115,6 +105,22 @@ public class ThongTinHoaDon extends AppCompatActivity {
                 Bundle bundle = getIntent().getExtras();
                 String msthue = bundle.getString("masothue");
                 String requestId = msthue ;
+                String tenct = bundle.getString("tenct");
+                String diachi = bundle.getString("diachi");
+                String linhvuc = bundle.getString("linhvuc");
+                String kihan = bundle.getString("kihan");
+                String giatien1="0";
+                if (kihan.equals("1 Tháng")){
+                    giatien1 = "85.000";
+
+                } else  if (kihan.equals("3 Tháng")){
+                    giatien1 = "150.000";
+
+                }else{
+                    giatien1 = "220.000";
+                }
+
+                String ten = tenct;
                 String trangthai = "0";
                             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://192.168.1.2:3000/")
@@ -122,7 +128,7 @@ public class ThongTinHoaDon extends AppCompatActivity {
                     .build();
 
             Interface_AddYeucau interfaceDelete = retrofit.create(Interface_AddYeucau.class);
-                Call<ServerResponse> call = interfaceDelete.addYeuCau(requestId,trangthai);
+                Call<ServerResponse> call = interfaceDelete.addYeuCau(requestId,trangthai,ten,giatien1);
                 call.enqueue(new Callback<ServerResponse>() {
                     @Override
                     public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {

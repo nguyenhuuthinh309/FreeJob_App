@@ -1,7 +1,5 @@
 package com.example.sanphamdemo.interfaceall;
 
-import com.example.sanphamdemo.ServerResponse;
-import com.example.sanphamdemo.user.DeleteBan;
 import com.example.sanphamdemo.user.Delete_YeuCau;
 
 import retrofit2.Call;

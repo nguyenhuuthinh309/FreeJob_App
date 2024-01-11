@@ -12,8 +12,8 @@
 
     <item
         android:id="@+id/bnav_khamPha"
-        android:title="Khám phá"
-        android:icon="@drawable/ongnhom_icon_xam" />
+        android:title="Thông Báo"
+        android:icon="@drawable/chuong" />
 
     <item
         android:id="@+id/bnav_menu"

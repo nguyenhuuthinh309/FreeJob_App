@@ -92,6 +92,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
                 >
              <EditText
+                 android:id="@+id/textsearch"
                  android:layout_marginLeft="10dp"
                  android:padding="10dp"
                  android:layout_weight="7"
@@ -105,9 +106,10 @@
              </EditText>
 
                 <ImageView
+
                     android:layout_weight="1"
                     android:background="@drawable/serch_icon_den"
-                    android:id="@+id/btn_add_to_list"
+                    android:id="@+id/imagesearch"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
 
