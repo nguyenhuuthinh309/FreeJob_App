@@ -41,39 +41,8 @@
         android:layout_marginTop="4dp"
         >
 
-        <TextView
-            android:id="@+id/tv_count_coin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/orange"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:text="0" />
-        <TextView
-            android:id="@+id/tv_title_coin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="Coin"
-            android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@+id/tv_count_coin"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="16sp"/>
-        <TextView
-            android:id="@+id/btn_nap_coin"
-            android:layout_width="wrap_content"
-            android:padding="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@drawable/bovien_button_cam"
-            android:layout_toRightOf="@+id/tv_title_coin"
-            android:text="Nạp coin"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="10sp"/>
+
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -44,8 +44,9 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.9.0")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-
+    implementation("com.facebook.android:facebook-login:16.3.0")
     implementation ("de.hdodenhof:circleimageview:2.2.0")
+    implementation("com.facebook.android:facebook-login:latest.release")
 
     implementation ("com.github.bumptech.glide:glide:4.16.0")
    // implementation ("com.github.arimorty:floatingsearchview:2.1.1") // Phiên bản cụ thể bạn đang sử dụng

@@ -17,9 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sanphamdemo.R;
+import com.example.sanphamdemo.dangnhap.DangNhap;
 import com.example.sanphamdemo.fragment.Admin_DSyeucau_Fragment;
 import com.example.sanphamdemo.fragment.HomeFragment;
 import com.example.sanphamdemo.fragment.KhamPhaFragment;
@@ -28,6 +30,7 @@ import com.example.sanphamdemo.fragment.MenuFragment;
 import com.example.sanphamdemo.fragment.ProfileFragment;
 import com.example.sanphamdemo.fragment.ThongBaoFragment;
 import com.example.sanphamdemo.fragment.YeuThichFragment;
+import com.example.sanphamdemo.user.UngVien;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -38,9 +41,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private NavigationView navigationView;
     MenuItem unLockAccItem;
     MenuItem companyManegeItem;
+    TextView email1, hotem1;
     Menu menu;
     private Toolbar mToolbar;
-
+    UngVien ungVien;
     private static final String TAG = "YourActivity";
 
     private TabLayout tabLayout;
@@ -48,6 +52,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
 
 
         bind();
@@ -59,6 +65,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         setupBottomNavigationView();
         showInitialFragment();
+
+        // Nhận dữ liệu từ Intent
+        Intent intent = getIntent();
+        if (intent != null) {
+            // Kiểm tra xem Intent có chứa dữ liệu không
+            if (intent.hasExtra("objungvien")) {
+                // Lấy đối tượng UngVien từ Intent
+                UngVien ungVien = (UngVien) intent.getSerializableExtra("objungvien");
+                     // email1.setText(ungVien.getHoten());
+                // Thực hiện các thao tác khác với dữ liệu
+            }
+        }
+        // Nhận dữ liệu từ Intent
+        // Nhận dữ liệu từ Intent
 
 
     }
@@ -112,6 +132,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         navigationView = findViewById(R.id.nav_view);
 
 
+        email1 = navigationView.getHeaderView(0).findViewById(R.id.profile_name);
+        hotem1 = navigationView.getHeaderView(0).findViewById(R.id.profile_email);
+
 
 
 
@@ -145,7 +168,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 } else if (item.getItemId() == R.id.bnav_khamPha) {
                     selectedFragment = new KhamPhaFragment();
                 } else if (item.getItemId() == R.id.bnav_menu) {
-                    selectedFragment = new ProfileFragment();
+                    selectedFragment = new MenuFragment();
+
                 }
 
 
