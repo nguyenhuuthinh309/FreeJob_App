@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -24,16 +22,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.sanphamdemo.R;
-import com.example.sanphamdemo.adapter.AdapterItem;
 
-import com.example.sanphamdemo.adapter.Adapter_of_ViewPage;
 import com.example.sanphamdemo.adapter.HomeSliderAdapter;
 import com.example.sanphamdemo.adapter.MyAdapter;
 import com.example.sanphamdemo.adapter.YourResponseClass;
 import com.example.sanphamdemo.interfaceall.Interface_ListBan;
 import com.example.sanphamdemo.user.Ban_User;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.Arrays;

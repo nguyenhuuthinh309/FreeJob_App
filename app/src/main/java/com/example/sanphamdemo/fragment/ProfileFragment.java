@@ -2,6 +2,7 @@ package com.example.sanphamdemo.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,17 @@ import com.example.sanphamdemo.user.UngVien;
 
 public class ProfileFragment extends Fragment {
 
-    private TextView hovaten;
-    private TextView kinhnghiem;
-    private TextView myprofile;
+    private TextView hovaten1;
+    private TextView role;
     private RelativeLayout vieclam;
-    private RelativeLayout congtycuatoi;
+    private TextView email;
+    private TextView kinhnghiem;
+    private TextView bangcap;
+    private TextView diachi;
+    private TextView sdt;
+    private TextView update;
     private TextView dangxuat;
+
 
 
     public static ProfileFragment newInstance() {
@@ -46,35 +52,39 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView btnprofile = view.findViewById(R.id.myprofile);
-        hovaten = (TextView) view.findViewById(R.id.hovaten);
-        kinhnghiem = (TextView) view.findViewById(R.id.kinhnghiem);
-        myprofile = (TextView) view.findViewById(R.id.myprofile);
+
+        hovaten1 = (TextView) view.findViewById(R.id.hovaten1);
+        role = (TextView) view.findViewById(R.id.role);
         vieclam = (RelativeLayout) view.findViewById(R.id.vieclam);
-        congtycuatoi = (RelativeLayout) view.findViewById(R.id.congtycuatoi);
+        email = (TextView) view.findViewById(R.id.email);
+        kinhnghiem = (TextView) view.findViewById(R.id.kinhnghiem);
+        bangcap = (TextView) view.findViewById(R.id.bangcap);
+        diachi = (TextView)view.findViewById(R.id.diachi);
+        sdt = (TextView) view.findViewById(R.id.sdt);
+        update = (TextView) view.findViewById(R.id.update);
         dangxuat = (TextView) view.findViewById(R.id.dangxuat);
 
-        // Nhận dữ liệu từ Bundle của Fragment
+        // Lấy Bundle từ Fragment
         Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey("obj")) {
+
+        if (bundle != null) {
             // Lấy đối tượng UngVien từ Bundle
-            UngVien ungVien = (UngVien) bundle.getSerializable("obj");
+            UngVien ungVien = (UngVien) bundle.getSerializable("objungvien");
 
-            // Hiển thị thông tin lên TextView
-           hovaten.setText(ungVien.getHoten());
-           kinhnghiem.setText(ungVien.getKinhnghiem());
-            // Các dòng code tương tự để hiển thị thông tin khác nếu cần
+            if (ungVien != null) {
+                hovaten1.setText(ungVien.getHoten());
+                role.setText(ungVien.getRole());
+                email.setText(ungVien.getEmail());
+                diachi.setText(ungVien.getDiachi());
+                sdt.setText(ungVien.getSdt());
+                bangcap.setText(ungVien.getBangcap());
+                kinhnghiem.setText(ungVien.getKinhnghiem());
 
-            btnprofile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DetailProfileFragment fragmentB = new DetailProfileFragment();
-                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                    transaction.replace(R.id.container, fragmentB);
-                    transaction.addToBackStack(null); // Để có thể quay lại FragmentA
-                    transaction.commit();
-                }
-            });
+            }
+        }
+
+
+
 
         }
-    }}
+    }

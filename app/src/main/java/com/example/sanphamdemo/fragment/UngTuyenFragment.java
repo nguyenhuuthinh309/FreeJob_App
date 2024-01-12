@@ -9,17 +9,17 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sanphamdemo.R;
 
-public class DoUongFragment extends Fragment {
+public class UngTuyenFragment extends Fragment {
 
 
 
-    public DoUongFragment() {
+    public UngTuyenFragment() {
         // Required empty public constructor
     }
 
 
-    public static DoUongFragment newInstance() {
-        DoUongFragment fragment = new DoUongFragment();
+    public static UngTuyenFragment newInstance() {
+        UngTuyenFragment fragment = new UngTuyenFragment();
         Bundle args = new Bundle();
 
         return fragment;

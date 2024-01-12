@@ -11,9 +11,10 @@
         android:icon="@drawable/heart_icon_xam" />
 
     <item
+
         android:id="@+id/bnav_khamPha"
-        android:title="Thông Báo"
-        android:icon="@drawable/chuong" />
+        android:title="Việc Làm"
+        android:icon="@drawable/company2" />
 
     <item
         android:id="@+id/bnav_menu"

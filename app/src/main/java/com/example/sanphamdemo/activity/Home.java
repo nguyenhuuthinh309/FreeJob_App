@@ -16,17 +16,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sanphamdemo.R;
-import com.example.sanphamdemo.dangnhap.DangNhap;
 import com.example.sanphamdemo.fragment.Admin_DSyeucau_Fragment;
+import com.example.sanphamdemo.fragment.CongTyCuaToiFragment;
 import com.example.sanphamdemo.fragment.HomeFragment;
 import com.example.sanphamdemo.fragment.KhamPhaFragment;
 import com.example.sanphamdemo.fragment.LapCongTyFragment;
-import com.example.sanphamdemo.fragment.MenuFragment;
 import com.example.sanphamdemo.fragment.ProfileFragment;
 import com.example.sanphamdemo.fragment.ThongBaoFragment;
 import com.example.sanphamdemo.fragment.YeuThichFragment;
@@ -65,22 +63,24 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         setupBottomNavigationView();
         showInitialFragment();
-
-        // Nhận dữ liệu từ Intent
+// Trong Activity nhận (Home)
         Intent intent = getIntent();
-        if (intent != null) {
-            // Kiểm tra xem Intent có chứa dữ liệu không
-            if (intent.hasExtra("objungvien")) {
-                // Lấy đối tượng UngVien từ Intent
-                UngVien ungVien = (UngVien) intent.getSerializableExtra("objungvien");
-                     // email1.setText(ungVien.getHoten());
-                // Thực hiện các thao tác khác với dữ liệu
+        Bundle bundle = intent.getExtras();
+
+        if (bundle != null) {
+             ungVien = (UngVien) bundle.getSerializable("objungvien");
+
+            if (ungVien != null) {
+               email1.setText(ungVien.getHoten());
+               hotem1.setText(ungVien.getEmail());
+               String check = ungVien.getRole();
+                if ("Ứng Viên".equals(check)) {
+                    // Ẩn nút 3 gạch
+                    toggle.setDrawerIndicatorEnabled(false);
+
+                }
             }
         }
-        // Nhận dữ liệu từ Intent
-        // Nhận dữ liệu từ Intent
-
-
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -166,9 +166,44 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 } else if (item.getItemId() == R.id.bnav_yeuThich) {
                     selectedFragment = new YeuThichFragment();
                 } else if (item.getItemId() == R.id.bnav_khamPha) {
-                    selectedFragment = new KhamPhaFragment();
+                    Intent intent = getIntent();
+                    Bundle bundle = intent.getExtras();
+                    if (bundle != null) {
+                        ungVien = (UngVien) bundle.getSerializable("objungvien");
+
+                        if (ungVien != null) {
+                       int check = ungVien.getIdHoaDonCongTy();
+
+                            if (check == 0 ){
+                                selectedFragment = new LapCongTyFragment();
+                                Toast.makeText(this, "chua co" , Toast.LENGTH_SHORT).show();
+
+
+                            }else{
+
+                                Bundle bundle1 = new Bundle();
+                                bundle1.putSerializable("objungvien", ungVien);
+                                CongTyCuaToiFragment fragment = new CongTyCuaToiFragment();
+                                fragment.setArguments(bundle1);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.container, fragment)
+                                        .commit();
+                            //    selectedFragment = new CongTyCuaToiFragment();
+
+                            }
+                        }
+                    }
+
                 } else if (item.getItemId() == R.id.bnav_menu) {
-                    selectedFragment = new MenuFragment();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("objungvien", ungVien);
+                    ProfileFragment fragment = new ProfileFragment();
+                    fragment.setArguments(bundle);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, fragment)
+                            .commit();
+
 
                 }
 

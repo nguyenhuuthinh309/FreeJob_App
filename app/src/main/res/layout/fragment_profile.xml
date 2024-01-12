@@ -29,7 +29,7 @@
                    android:layout_weight="1"
                    android:text="Thông Tin Cá Nhân"
                    android:textColor="@color/white"
-                   android:textSize="30sp"
+                   android:textSize="20sp"
                    android:textStyle="bold" />
 
                <LinearLayout
@@ -96,12 +96,14 @@
                        android:background="@drawable/add_to_list" />
                </LinearLayout>
                <LinearLayout
-                   android:layout_marginTop="10dp"
+                   android:gravity="center"
+                   android:layout_gravity="center"
+
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:orientation="vertical">
                    <TextView
-                       android:id="@+id/hovaten"
+                       android:id="@+id/hovaten1"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:text="Tên của bạn"
@@ -110,22 +112,14 @@
                        android:textStyle="bold"/>
 
                    <TextView
-                       android:id="@+id/kinhnghiem"
+                       android:id="@+id/role"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="10 năm kinh nghiệm"
+                       android:text="Role"
 
                        android:textSize="16sp"
                        />
-                   <TextView
-                       android:id="@+id/myprofile"
-                       android:layout_marginTop="5dp"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="Hồ sơ của tôi"
-                       android:textColor="@color/color_main_app"
-                       android:textSize="18sp"
-                       />
+
 
                </LinearLayout>
            </LinearLayout>
@@ -193,56 +187,7 @@
                      android:background="@drawable/icon_notifile1"/>
              </RelativeLayout>
          </LinearLayout>
-           <LinearLayout
-               android:layout_marginTop="10dp"
-               android:layout_marginHorizontal="10dp"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal">
-               <RelativeLayout
-                   android:id="@+id/congtycuatoi"
-                   android:paddingLeft="10dp"
-                   android:paddingTop="5dp"
-                   android:paddingBottom="5dp"
-                   android:layout_marginRight="10dp"
-                   android:background="@drawable/bg_bogoctron1"
-                   android:layout_width="170dp"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="1">
-                   <TextView
-                       android:layout_marginTop="30dp"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="Công ty của tôi"
-                       android:textSize="20sp"
-                       android:textColor="@color/black"/>
-                   <ImageView
-                       android:layout_width="30dp"
-                       android:layout_height="30dp"
-                       android:background="@drawable/company"/>
-               </RelativeLayout>
-               <RelativeLayout
-                   android:paddingLeft="10dp"
-                   android:paddingTop="5dp"
-                   android:paddingBottom="5dp"
-                   android:layout_marginRight="10dp"
-                   android:background="@drawable/bg_bogoctron1"
-                   android:layout_width="170dp"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="1">
-                   <TextView
-                       android:layout_marginTop="30dp"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="Chia sẻ hồ sơ"
-                       android:textSize="20sp"
-                       android:textColor="@color/black"/>
-                   <ImageView
-                       android:layout_width="30dp"
-                       android:layout_height="30dp"
-                       android:background="@drawable/share"/>
-               </RelativeLayout>
-           </LinearLayout>
+
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -258,6 +203,169 @@
                android:background="#D8D8D8"
                android:layout_marginTop="10dp"
                android:layout_marginBottom="10dp"/>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="vertical">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginHorizontal="10dp"
+                   android:layout_marginTop="10dp"
+
+                   android:orientation="vertical">
+
+
+
+
+
+
+
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginLeft="20dp"
+                       android:orientation="horizontal">
+
+                       <ImageView
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:layout_gravity="center"
+                           android:background="@drawable/ic_email" />
+
+                       <TextView
+                           android:id="@+id/email"
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:layout_marginLeft="10dp"
+                           android:gravity="center|left"
+                           android:text="email"
+                          />
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginLeft="20dp"
+                       android:orientation="horizontal">
+
+                       <ImageView
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:layout_gravity="center"
+                           android:background="@drawable/icon_work_24" />
+
+                       <TextView
+                           android:id="@+id/kinhnghiem"
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:layout_marginLeft="10dp"
+                           android:gravity="center|left"
+                           android:text="Kinh Nghiệm" />
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginLeft="20dp"
+                       android:orientation="horizontal">
+
+                       <ImageView
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:layout_gravity="center"
+                           android:background="@drawable/mortarboard" />
+
+                       <TextView
+                           android:id="@+id/bangcap"
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:layout_marginLeft="10dp"
+                           android:gravity="center|left"
+                           android:textColor="@color/black"
+                           android:text="Bằng cấp cao nhất" />
+                   </LinearLayout>
+
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginLeft="20dp"
+                       android:layout_marginTop="10dp"
+                       android:orientation="horizontal">
+
+                       <ImageView
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:layout_gravity="center"
+                           android:background="@drawable/icon_location_on_24" />
+
+                       <TextView
+                           android:id="@+id/diachi"
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:layout_marginLeft="10dp"
+                           android:gravity="center|left"
+                           android:text="Địa chỉ" />
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginLeft="20dp"
+                       android:orientation="horizontal">
+
+                       <ImageView
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:layout_gravity="center"
+                           android:background="@drawable/icon_phone_24" />
+
+                       <TextView
+                           android:id="@+id/sdt"
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:layout_marginLeft="10dp"
+                           android:gravity="center|left"
+                           android:text="Số điện tho" />
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginHorizontal="55dp"
+                       android:orientation="horizontal">
+
+                       <ImageView
+                           android:backgroundTint="@color/lightskyblue"
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:layout_gravity="center"
+                           android:background="@drawable/icon_edit_24" />
+
+                       <TextView
+
+                           android:textStyle="bold"
+                           android:id="@+id/update"
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                        android:paddingTop="5dp"
+
+                           android:text="Chỉnh sửa thông tin"
+                           android:textColor="@color/lightskyblue"
+                           android:textSize="20sp" />
+                   </LinearLayout>
+               </LinearLayout>
+
+
+
+
+
+
+
+           </LinearLayout>
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="50dp"

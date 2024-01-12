@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.sanphamdemo.fragment.LapCongTyFragment;
-import com.example.sanphamdemo.fragment.DoUongFragment;
+import com.example.sanphamdemo.fragment.UngTuyenFragment;
 
 public class Adapter_of_menu extends FragmentStateAdapter{
 
@@ -24,10 +23,10 @@ public class Adapter_of_menu extends FragmentStateAdapter{
         Fragment fragment = null;
         switch (position){
             case 0:
-                fragment = LapCongTyFragment.newInstance();
+              //  fragment = CongTyFragment.newInstance();
                  break;
             case 1:
-                fragment = DoUongFragment.newInstance();
+                fragment = UngTuyenFragment.newInstance();
                 break;
 
         }

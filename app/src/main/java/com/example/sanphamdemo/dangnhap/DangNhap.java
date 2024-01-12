@@ -11,23 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sanphamdemo.R;
-import com.example.sanphamdemo.activity.DetailItemBaiDang;
 import com.example.sanphamdemo.activity.Home;
-import com.example.sanphamdemo.activity.UngTuyenActivity;
 import com.example.sanphamdemo.interfaceall.Interface_UngVien;
-import com.example.sanphamdemo.interfaceall.UngVienResponse;
-import com.example.sanphamdemo.user.Ban_User;
-import com.example.sanphamdemo.user.RequestModel;
-import com.example.sanphamdemo.user.ServerResponse;
+import com.example.sanphamdemo.user.UngVienResponse;
 import com.example.sanphamdemo.user.UngVien;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,12 +76,14 @@ public class DangNhap extends AppCompatActivity {
                                 if (response.isSuccessful() && response.body() != null) {
                                     UngVienResponse ungVienResponse = response.body();
                                     UngVien ungVien = ungVienResponse.getUngVien();
-//
-                                    Intent intent = new Intent(DangNhap.this, DetailItemBaiDang.class);
-//                                    Bundle bundle = new Bundle();
-//                                    bundle.putSerializable("objungvien",ungVien);
-//                                    intent.putExtras(bundle);
-//                                    startActivity(intent);
+
+
+                                    Intent intent = new Intent(DangNhap.this, Home.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("objungvien",ungVien);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+
                                     Toast.makeText(DangNhap.this, "Đăng nhập thành công"+ungVien.getHoten(), Toast.LENGTH_SHORT).show();
 
                                     // Tiếp tục với các hành động khác sau khi đăng nhập thành công
