@@ -18,6 +18,8 @@ public class Ban_User implements Serializable {
     private String ngaythang;
 
     String ngaytao;
+    String idHoaDonCongTy;
+    String diachi;
 
     public String getNgaytao() {
         return ngaytao;
@@ -42,6 +44,19 @@ public class Ban_User implements Serializable {
         this.ngaythang = ngaythang;
     }
 
+    public Ban_User(int id, String ten, String giovao, int gia, int trangthai, String ngaythang, String ngaytao, String idHoaDonCongTy, String diachi) {
+        this.id = id;
+        this.ten = ten;
+        this.giovao = giovao;
+        this.gia = gia;
+        this.trangthai = trangthai;
+        this.ngaythang = ngaythang;
+        this.ngaytao = ngaytao;
+        this.idHoaDonCongTy = idHoaDonCongTy;
+        this.diachi = diachi;
+    }
+
+
     public Ban_User(int id, String ten, String giovao, int gia, int trangthai, String ngaythang) {
         this.id = id;
         this.ten = ten;
@@ -49,6 +64,21 @@ public class Ban_User implements Serializable {
         this.gia = gia;
         this.trangthai = trangthai;
         this.ngaythang = ngaythang;
+    }
+    public String getDiachi() {
+        return diachi;
+    }
+
+    public void setDiachi(String diachi) {
+        this.diachi = diachi;
+    }
+
+    public String getIdHoaDonCongTy() {
+        return idHoaDonCongTy;
+    }
+
+    public void setIdHoaDonCongTy(String idHoaDonCongTy) {
+        this.idHoaDonCongTy = idHoaDonCongTy;
     }
 
     public int getId() {

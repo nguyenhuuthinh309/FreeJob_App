@@ -1,11 +1,11 @@
 package com.example.sanphamdemo.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -19,17 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sanphamdemo.R;
-import com.example.sanphamdemo.activity.Home;
-import com.example.sanphamdemo.dangnhap.DangNhap;
+import com.example.sanphamdemo.adapter.MyAdapter2;
 import com.example.sanphamdemo.interfaceall.Interface_GetCongTy;
-import com.example.sanphamdemo.interfaceall.Interface_UngVien;
-import com.example.sanphamdemo.user.CongTyResponse;
+import com.example.sanphamdemo.interfaceall.Interface_getbaidangtheocongty;
+import com.example.sanphamdemo.user.Ban_User;
 import com.example.sanphamdemo.user.HoaDonCongTyy;
 import com.example.sanphamdemo.user.UngVien;
-import com.example.sanphamdemo.user.UngVienResponse;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +37,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CongTyCuaToiFragment extends Fragment {
-
+    MyAdapter2 adapter1;
+    private ArrayList<Ban_User> arrayList = new ArrayList<>();
     private LinearLayout linearLayout6,detail_congty;
     private TextView tencongty;
     private TextView masothue1;
@@ -50,7 +48,9 @@ public class CongTyCuaToiFragment extends Fragment {
     private TextView tvTitleViecTot;
     private RecyclerView recyclerViewBaidang;
       List<HoaDonCongTyy> mlist= new ArrayList<>();
+    List<Ban_User> mlist1= new ArrayList<>();
     String a;
+    String tencongt;
     public CongTyCuaToiFragment() {
         // Required empty public constructor
     }
@@ -92,15 +92,21 @@ public class CongTyCuaToiFragment extends Fragment {
         recyclerViewBaidang = (RecyclerView) view. findViewById(R.id.recyclerView_baidang);
         detail_congty = view.findViewById(R.id.detail_congty);
 
-        // Lấy Bundle từ Fragment
+        adapter1 = new MyAdapter2(getActivity());
+        adapter1.setData((ArrayList<Ban_User>) mlist1);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        recyclerViewBaidang.setLayoutManager(linearLayoutManager2);
+        recyclerViewBaidang.setAdapter(adapter1);
+
         Bundle bundle = getArguments();
         if (bundle != null) {
             // Lấy đối tượng UngVien từ Bundle
             UngVien ungVien = (UngVien) bundle.getSerializable("objungvien");
              a = String.valueOf(ungVien.getIdHoaDonCongTy());
 
+
             if (ungVien != null) {
-                masothue1.setText("Mã Số Thuế"+ a);
+                masothue1.setText("Mã Số Thuế : "+ a);
 
             }
         }
@@ -122,6 +128,8 @@ public class CongTyCuaToiFragment extends Fragment {
 
 
                       tencongty.setText(myObject.getTenCongTy());
+                      tencongt= myObject.getTenCongTy();
+
 
                         detail_congty.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -148,6 +156,36 @@ public class CongTyCuaToiFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<HoaDonCongTyy>> call, Throwable t) {
+                // Xử lý khi có lỗi kết nối
+                Toast.makeText(getContext(), "Lỗi kết nối Server " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("zzzzzzzz", t.getMessage());
+
+            }
+        });
+
+
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.6:3000/")
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
+                .build();
+
+        Interface_getbaidangtheocongty interfaceDelete1 = retrofit1.create(Interface_getbaidangtheocongty.class);
+        Call<List<Ban_User>> call1 = interfaceDelete1.getBaidangtheocongty(a);
+        call1.enqueue(new Callback<List<Ban_User>>() {
+            @Override
+            public void onResponse(Call<List<Ban_User>> call1, Response<List<Ban_User>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Ban_User> ungVienResponse = response.body();
+                    mlist1.addAll(ungVienResponse);
+                   adapter1.notifyDataSetChanged();
+                    Log.d("zzzzzzzzzzzzzzzzzz", "true"+mlist1.size()+"");
+                }else {
+                    Log.d("zzzzzzzzzzzzzzzzzz", "faile"+response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Ban_User>> call1, Throwable t) {
                 // Xử lý khi có lỗi kết nối
                 Toast.makeText(getContext(), "Lỗi kết nối Server " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("zzzzzzzz", t.getMessage());
