@@ -63,26 +63,16 @@ public class LapCongTyFragment extends Fragment {
         //ImageView    btnBack = (ImageView)  view.findViewById(R.id.btnBack);
 
 
-
-        // Định nghĩa mảng giá trị cho Spinner
-        String[] items = {"", "1 Tháng", "3 Tháng","6 Tháng"};
-
-// Tạo ArrayAdapter để kết nối mảng giá trị với Spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, items);
-
-// Thiết lập giao diện cho danh sách thả xuống
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
-// Đặt ArrayAdapter cho Spinner
-        caidatbanspinner.setAdapter(adapter);
         btnCreateCompany.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
-
+        String[] items = {"", "1 Tháng", "3 Tháng","6 Tháng"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        caidatbanspinner.setAdapter(adapter);
         caidatbanspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id1) {

@@ -15,6 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.sanphamdemo.R;
+import com.example.sanphamdemo.activity.DetailItemBaiDang;
+import com.example.sanphamdemo.activity.Detail_CvtuyenDung;
+import com.example.sanphamdemo.activity.PhanhoiCVActivity;
+import com.example.sanphamdemo.user.Ban_User;
+import com.example.sanphamdemo.user.CV_UngTuyen;
 import com.example.sanphamdemo.user.UngVien;
 
 
@@ -80,6 +85,14 @@ public class ProfileFragment extends Fragment {
                 bangcap.setText(ungVien.getBangcap());
                 kinhnghiem.setText(ungVien.getKinhnghiem());
 
+
+                vieclam.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onClickItem(ungVien);
+                    }
+                });
+
             }
         }
 
@@ -87,4 +100,11 @@ public class ProfileFragment extends Fragment {
 
 
         }
+    private void onClickItem(UngVien request) {
+        Intent intent = new Intent(getContext(), PhanhoiCVActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("obj",request);
+        intent.putExtras(bundle);
+        getContext().startActivity(intent);
+    }
     }

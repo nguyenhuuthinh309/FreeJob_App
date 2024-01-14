@@ -45,7 +45,7 @@ public class CongTyCuaToiFragment extends Fragment {
     private LinearLayout linearMore;
     private EditText textsearch;
     private ImageView imagesearch;
-    private TextView tvTitleViecTot;
+    private TextView tvTitleViecTot,dangbai;
     private RecyclerView recyclerViewBaidang;
       List<HoaDonCongTyy> mlist= new ArrayList<>();
     List<Ban_User> mlist1= new ArrayList<>();
@@ -91,6 +91,7 @@ public class CongTyCuaToiFragment extends Fragment {
         tvTitleViecTot = (TextView)  view.findViewById(R.id.tvTitle_viecTot);
         recyclerViewBaidang = (RecyclerView) view. findViewById(R.id.recyclerView_baidang);
         detail_congty = view.findViewById(R.id.detail_congty);
+        dangbai = view.findViewById(R.id.dangbai);
 
         adapter1 = new MyAdapter2(getActivity());
         adapter1.setData((ArrayList<Ban_User>) mlist1);
@@ -148,6 +149,25 @@ public class CongTyCuaToiFragment extends Fragment {
                                         .addToBackStack(null)  // Để thêm Fragment B vào Stack, để có thể quay lại Fragment A
                                         .commit();
 
+                            }
+                        });
+
+                        dangbai.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("tenct", myObject.getTenCongTy());
+                                bundle.putString("masothue", String.valueOf(myObject.getIdHoaDonCongTy()));
+                                bundle.putString("diachi", myObject.getDiaChi());
+                                bundle.putString("linhvuc", myObject.getLinhVuc());
+                                bundle.putString("kihan", myObject.getKiHan());
+
+                                DangBaiFragment fragmentB = new DangBaiFragment();
+                                fragmentB.setArguments(bundle);
+                                getFragmentManager().beginTransaction()
+                                        .replace(R.id.container, fragmentB)
+                                        .addToBackStack(null)  // Để thêm Fragment B vào Stack, để có thể quay lại Fragment A
+                                        .commit();
                             }
                         });
                     }
