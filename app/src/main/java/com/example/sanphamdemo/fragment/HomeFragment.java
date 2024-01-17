@@ -28,6 +28,7 @@ import com.example.sanphamdemo.adapter.MyAdapter;
 import com.example.sanphamdemo.adapter.YourResponseClass;
 import com.example.sanphamdemo.interfaceall.Interface_ListBan;
 import com.example.sanphamdemo.user.Ban_User;
+import com.example.sanphamdemo.user.UngVien;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,9 +66,10 @@ public class HomeFragment extends Fragment {
    // AdapterItem adapter1;
     private GridView gridView;
     private ArrayList<Ban_User> arrayList = new ArrayList<>();
+    private ArrayList<UngVien> arrayListungven = new ArrayList<>();
     private List<YourResponseClass> arrayList3 = new ArrayList<>();
      MyAdapter adapter1;
-
+    UngVien ungVien;
     private ArrayList<Ban_User> arrayList2 = new ArrayList<>();
 
     public HomeFragment() {
@@ -108,13 +110,23 @@ public class HomeFragment extends Fragment {
         tvTitleViecTot = (TextView) view.findViewById(R.id.tvTitle_viecTot);
         recyclerView_ViecTot = (RecyclerView) view.findViewById(R.id.recyclerView_viecTot);
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            ungVien = (UngVien) bundle.getSerializable("objungvien");
+         //   Log.d("vvvvvvvvvvvvv", "123 : "+ ungVien.getIdUngVien());
+            if (ungVien != null) {
 
 
+
+            }
+        }
         adapter1 = new MyAdapter(getActivity());
-       adapter1.setData(arrayList);
-       LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        adapter1.setData(arrayList);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView_ViecTot.setLayoutManager(linearLayoutManager2);
         recyclerView_ViecTot.setAdapter(adapter1);
+
+
 
 String edit = textsearch.getText().toString();
 

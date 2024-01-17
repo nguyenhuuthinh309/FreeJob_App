@@ -1,5 +1,7 @@
 package com.example.sanphamdemo.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,8 @@ import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -40,7 +45,7 @@ public class ThongtinhoadonFragment extends Fragment {
     private TextView d;
     private TextView e;
     private TextView f;
-    private TextView dathanhtoan;
+    private TextView dathanhtoan,tesstidungvien;
     private RequestAdapter adapter1;
     private RecyclerView recyclerView;
 
@@ -49,6 +54,7 @@ public class ThongtinhoadonFragment extends Fragment {
     private RequestAdapter adapter;
 
     String msthue,tenct,diachi,linhvuc,kihan;
+    String idungvien;
 
     public ThongtinhoadonFragment() {
         // Required empty public constructor
@@ -102,6 +108,8 @@ public class ThongtinhoadonFragment extends Fragment {
             // Xử lý dữ liệu nhận được ở đây
 
 
+           idungvien = bundle.getString("idUngVien");
+
              msthue = bundle.getString("masothue");
              tenct = bundle.getString("tenct");
              diachi = bundle.getString("diachi");
@@ -142,6 +150,8 @@ public class ThongtinhoadonFragment extends Fragment {
         dathanhtoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dathanhtoan.setText("Chờ Xác Nhận");
+                Toast.makeText(getContext(), "Chờ Xác Nhận", Toast.LENGTH_SHORT).show();
                 Bundle bundle = getArguments();
                  msthue = bundle.getString("masothue");
                  tenct = bundle.getString("tenct");
@@ -169,15 +179,16 @@ public class ThongtinhoadonFragment extends Fragment {
                         .build();
 
                 Interface_AddYeucau interfaceDelete = retrofit.create(Interface_AddYeucau.class);
-                Call<ServerResponse> call = interfaceDelete.addYeuCau(requestId,trangthai,tenctyeucau,giatien1);
+                Call<ServerResponse> call = interfaceDelete.addYeuCau(requestId,trangthai,idungvien,tenctyeucau,giatien1);
                 call.enqueue(new Callback<ServerResponse>() {
                     @Override
                     public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                         if (response.isSuccessful()) {
                             ServerResponse svrResponseDelete = response.body();
-
-                            dathanhtoan.setText("Chờ Xác Nhận");
-                            Toast.makeText(getContext(), "Chờ Xác Nhận", Toast.LENGTH_SHORT).show();
+                            SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserPrefs1", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("user_masothue", Integer.parseInt(msthue));
+                            editor.apply();
 
                             String trangthai = "Chưa Xác Nhận";
                            String thanhtien = "0";
@@ -192,18 +203,24 @@ public class ThongtinhoadonFragment extends Fragment {
                             }else {
                                 thanhtien ="0";
                             }
+                            LocalDateTime currentDateTime = LocalDateTime.now();
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                            String formattedDateTime = currentDateTime.format(formatter);
+                            Log.d("zzzzzzzzzzzzzzzzzzzz", formattedDateTime);
+
                             Retrofit retrofit = new Retrofit.Builder()
                                     .baseUrl("http://192.168.1.6:3000/")
                                     .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                                     .build();
 
                             Interface_HoaDonCongTy interfaceDelete = retrofit.create(Interface_HoaDonCongTy.class);
-                            Call<HoaDonCongTyy> call1 = interfaceDelete.adDHoadonCongTy(Integer.parseInt(msthue),"2",tenct,diachi,linhvuc,kihan,trangthai,thanhtien);
+                            Call<HoaDonCongTyy> call1 = interfaceDelete.adDHoadonCongTy(Integer.parseInt(msthue), String.valueOf(idungvien),tenct,diachi,linhvuc,kihan,trangthai,thanhtien,formattedDateTime);
                             call1.enqueue(new Callback<HoaDonCongTyy>() {
                                 @Override
                                 public void onResponse(Call<HoaDonCongTyy> call, Response<HoaDonCongTyy> response) {
                                     if (response.isSuccessful()) {
                                         HoaDonCongTyy svrResponseDelete = response.body();
+
 
                                     } else {
                                         try {

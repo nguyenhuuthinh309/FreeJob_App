@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sanphamdemo.R;
+import com.example.sanphamdemo.interfaceall.Interface_UngVien;
 import com.example.sanphamdemo.user.RequestModel;
 import com.example.sanphamdemo.user.ConfirmationRequest;
 import com.example.sanphamdemo.user.HoaDonCongTyy;
@@ -25,6 +26,7 @@ import com.example.sanphamdemo.interfaceall.Interfave_AddHoaDon;
 import com.example.sanphamdemo.user.Delete_YeuCau;
 import com.example.sanphamdemo.user.ThongBao;
 import com.example.sanphamdemo.user.AddHoaDon;
+import com.example.sanphamdemo.user.UngVien;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +110,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
                             .setNegativeButton("Từ chối", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     String a = String.valueOf(request.getRequestId());
-                                    sendConfirmationRequest(request.getRequestId(), false);
+
 
                                     holder.confirm.setText("Yêu Cầu Bị Từ Chối");
                                     holder.confirm.setBackgroundColor(red);
@@ -133,6 +135,33 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
                                         @Override
                                         public void onFailure(Call<Delete_YeuCau> call, Throwable t) {
                                             Toast.makeText(context, "xóa thất bại " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                    Retrofit retrofit9 = new Retrofit.Builder()
+                                            .baseUrl("http://192.168.1.6:3000/") // Địa chỉ của server
+                                            .addConverterFactory(GsonConverterFactory.create())
+                                            .build();
+
+                                    Interface_HoaDonCongTy apiService9 = retrofit9.create(Interface_HoaDonCongTy.class);
+
+                                    Call<HoaDonCongTyy> call19 = apiService9.deletecongty(Integer.parseInt(request.getRequestId()));
+                                    call19.enqueue(new Callback<HoaDonCongTyy>() {
+                                        @Override
+                                        public void onResponse(Call<HoaDonCongTyy> call19, Response<HoaDonCongTyy> response) {
+                                            if (response.isSuccessful()) {
+
+
+                                            } else {
+                                                // Xử lý lỗi khi xác nhận từ server
+                                                showToast("Có lỗi xảy ra khi xác nhận yêu cầu.");
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<HoaDonCongTyy> call19, Throwable t) {
+                                            // Xử lý lỗi kết nối
+                                            showToast("Lỗi kết nối đến server.");
                                         }
                                     });
 
@@ -203,38 +232,61 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
                 if (response.isSuccessful()) {
                     // Xử lý khi xác nhận từ server thành công
                     //      handleConfirmationResponse(response.body().getMessage());
-                    Toast.makeText(context, "Yeu cau duoc chap nhan", Toast.LENGTH_SHORT).show();
 
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl("http://192.168.1.6:3000/") // Địa chỉ của server
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
 
-                   Interface_HoaDonCongTy apiService = retrofit.create(Interface_HoaDonCongTy.class);
+                   Interface_UngVien apiService = retrofit.create(Interface_UngVien.class);
 
-                    Call<HoaDonCongTyy> call1 = apiService.updateHoaDon(Integer.parseInt(request.getRequestId()));
-                    call1.enqueue(new Callback<HoaDonCongTyy>() {
+                    Call<UngVien> call1 = apiService.updateHoaDongCongTychoUngVien(request.getIdUngVien(),request.getRequestId());
+                    call1.enqueue(new Callback<UngVien>() {
                         @Override
-                        public void onResponse(Call<HoaDonCongTyy> call1, Response<HoaDonCongTyy> response) {
+                        public void onResponse(Call<UngVien> call1, Response<UngVien> response) {
                             if (response.isSuccessful()) {
-                                // Xử lý khi xác nhận từ server thành công
-                                //      handleConfirmationResponse(response.body().getMessage());
-                                Toast.makeText(context, "Yeu cau duoc chap nhan", Toast.LENGTH_SHORT).show();
-
 
 
                             } else {
                                 // Xử lý lỗi khi xác nhận từ server
-                                showToast("Có lỗi xảy ra khi xác nhận yêu cầu.");
+
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<HoaDonCongTyy> call1, Throwable t) {
+                        public void onFailure(Call<UngVien> call1, Throwable t) {
                             // Xử lý lỗi kết nối
-                            showToast("Lỗi kết nối đến server.");
+
                         }
                     });
+                    ///////////////
+                    Retrofit retrofit9 = new Retrofit.Builder()
+                            .baseUrl("http://192.168.1.6:3000/") // Địa chỉ của server
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    Interface_HoaDonCongTy apiService9 = retrofit9.create(Interface_HoaDonCongTy.class);
+
+                    Call<HoaDonCongTyy> call19 = apiService9.update1(Integer.parseInt(request.getRequestId()));
+                    call19.enqueue(new Callback<HoaDonCongTyy>() {
+                        @Override
+                        public void onResponse(Call<HoaDonCongTyy> call19, Response<HoaDonCongTyy> response) {
+                            if (response.isSuccessful()) {
+
+
+                            } else {
+                                // Xử lý lỗi khi xác nhận từ server
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<HoaDonCongTyy> call19, Throwable t) {
+                            // Xử lý lỗi kết nối
+
+                        }
+                    });
+                    /////////////////
 
 
                     Retrofit retrofit2 = new Retrofit.Builder()
@@ -249,27 +301,27 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
                         @Override
                         public void onResponse(Call<Delete_YeuCau> call5, Response<Delete_YeuCau> response) {
                             Delete_YeuCau svrResponseDelete = response.body(); // lay kq tu serrverr
-                            Toast.makeText(context, "xóa thành công " + svrResponseDelete.getMessage(), Toast.LENGTH_SHORT).show();
+
                             // inteloadData.loadData();
                         }
 
                         @Override
                         public void onFailure(Call<Delete_YeuCau> call, Throwable t) {
-                            Toast.makeText(context, "xóa thất bại " + t.getMessage(), Toast.LENGTH_SHORT).show();
+
                         }
                     });
 
 
                 } else {
                     // Xử lý lỗi khi xác nhận từ server
-                    showToast("Có lỗi xảy ra khi xác nhận yêu cầu.");
+
                 }
             }
 
             @Override
             public void onFailure(Call<RequestModel> call5, Throwable t) {
                 // Xử lý lỗi kết nối
-                showToast("Lỗi kết nối đến server.");
+
             }
         });
     }

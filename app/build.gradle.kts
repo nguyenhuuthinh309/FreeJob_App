@@ -49,7 +49,8 @@ dependencies {
     implementation("com.facebook.android:facebook-login:latest.release")
     implementation ("joda-time:joda-time:2.10.14")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
-   // implementation ("com.github.arimorty:floatingsearchview:2.1.1") // Phiên bản cụ thể bạn đang sử dụng
+    implementation ("androidx.fragment:fragment:1.3.6")
+    // implementation ("com.github.arimorty:floatingsearchview:2.1.1") // Phiên bản cụ thể bạn đang sử dụng
 
 // Hoặc sử dụng phiên bản mới nhất (điều này cần kiểm tra phiên bản mới nhất trên GitHub hoặc Maven Central)
 // implementation 'com.github.arimorty:floatingsearchview:latest_version'

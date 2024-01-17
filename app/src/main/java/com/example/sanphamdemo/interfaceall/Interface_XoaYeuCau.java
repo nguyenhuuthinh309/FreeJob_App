@@ -10,5 +10,5 @@ import retrofit2.http.POST;
 public interface Interface_XoaYeuCau {
     @FormUrlEncoded
     @POST("api/delitemyeucau/:id")
-    Call<Delete_YeuCau> deleteYeucau(@Field("id")String id);
+    Call<Delete_YeuCau> deleteYeucau(@Field("requestId")String requestId);
 }

@@ -6,6 +6,15 @@ public class ServerResponse {
 
     private String trangthai;
     private String tencongty,giatien;
+    private String idUngVien;
+
+    public String getIdUngVien() {
+        return idUngVien;
+    }
+
+    public void setIdUngVien(String idUngVien) {
+        this.idUngVien = idUngVien;
+    }
 
     public String getTencongty() {
         return tencongty;

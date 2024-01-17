@@ -32,7 +32,7 @@ public class Test extends AppCompatActivity {
     private Button btnHuyEditHV;
     InteLoadData inteloadData;
     Ban_User prd = new Ban_User();
-    private static final String BASE_URL = "http://192.168.1.2:3000/";
+    private static final String BASE_URL = "http://192.168.1.6:3000/";
     int nhanidxoa;
     private Retrofit retrofit;
     private Interface_Sua apiService;

@@ -3,10 +3,14 @@ package com.example.sanphamdemo.dangnhap;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,8 +42,12 @@ public class DangNhap extends AppCompatActivity {
     private TextView tvChinhSachBaoMat;
     private TextView textView8;
     private TextView tvBtnDangKy;
+    private CheckBox rememberMeCheckBox;
 
-
+    private static final String PREFS_NAME = "MyPrefsFile";
+    private static final String PREF_EMAIL = "email";
+    private static final String PREF_PASSWORD = "password";
+    private static final String PREF_REMEMBER_ME = "rememberMe";
    List<UngVienResponse> list ;
 
     UngVien ungVien;
@@ -58,12 +66,40 @@ public class DangNhap extends AppCompatActivity {
         tvBtnDangKy = (TextView) findViewById(R.id.tv_Btn_DangKy);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Vui lòng chờ...");
+        rememberMeCheckBox = findViewById(R.id.checkboxRememberPassword);
         list = new ArrayList<>();
 
+        // Load trạng thái "Nhớ mật khẩu" từ SharedPreferences
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        boolean rememberMe = preferences.getBoolean(PREF_REMEMBER_ME, false);
+        rememberMeCheckBox.setChecked(rememberMe);
 
-                tvBtnDangKy.setOnClickListener(new View.OnClickListener() {
+        if (rememberMe) {
+            // Nếu "Nhớ mật khẩu" đã chọn, load thông tin mật khẩu từ SharedPreferences
+            String savedEmail = preferences.getString(PREF_EMAIL, "");
+            String savedPassword = preferences.getString(PREF_PASSWORD, "");
+
+            // Đặt giá trị vào EditText
+            email.setText(savedEmail);
+            matkhau.setText(savedPassword);
+        }
+
+        rememberMeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Lưu trạng thái "Nhớ mật khẩu" vào SharedPreferences
+                SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();
+                editor.putBoolean(PREF_REMEMBER_ME, isChecked);
+                editor.apply();
+            }
+        });
+
+
+
+        tvBtnDangKy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         progressDialog.show();
                         Retrofit retrofit = new Retrofit.Builder()
                                 .baseUrl("http://192.168.1.6:3000/")
@@ -81,25 +117,51 @@ public class DangNhap extends AppCompatActivity {
                                     UngVienResponse ungVienResponse = response.body();
                                     UngVien ungVien = ungVienResponse.getUngVien();
 
+                                    // Trong sự kiện đăng nhập
 
+
+// Kiểm tra xem "Nhớ mật khẩu" có được chọn không
+                                    if (rememberMeCheckBox.isChecked()) {
+                                        // Lưu thông tin mật khẩu vào SharedPreferences
+                                        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();
+                                        editor.putString(PREF_EMAIL, emailn);
+                                        editor.putString(PREF_PASSWORD, matkhaun);
+                                        editor.apply();
+                                    } else {
+                                        // Nếu "Nhớ mật khẩu" không được chọn, xóa thông tin mật khẩu từ SharedPreferences
+                                        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();
+                                        editor.remove(PREF_EMAIL);
+                                        editor.remove(PREF_PASSWORD);
+                                        editor.apply();
+                                    }
+
+
+                                    SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt("user_id", ungVien.getIdUngVien());
+                                    editor.putString("user_email", ungVien.getEmail());
+                                    editor.putString("user_matkhau", ungVien.getMatkhau());
+                                    editor.apply();
                                     Intent intent = new Intent(DangNhap.this, Home.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putSerializable("objungvien",ungVien);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
 
-                                    Toast.makeText(DangNhap.this, "Đăng nhập thành công"+ungVien.getHoten(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(DangNhap.this, ungVien.getHoten(), Toast.LENGTH_SHORT).show();
 
                                     // Tiếp tục với các hành động khác sau khi đăng nhập thành công
                                 } else if (response.code() == 401) {
                                     // Xử lý khi đăng nhập thất bại
+                                    progressDialog.dismiss();
                                     Toast.makeText(DangNhap.this, "Sai thông tin đăng nhập", Toast.LENGTH_SHORT).show();
                                 } else {
+                                    progressDialog.dismiss();
                                     // Xử lý khi có lỗi khác
                                     try {
+                                        progressDialog.dismiss();
                                         String errorBody = response.errorBody().string();
-                                        Toast.makeText(DangNhap.this, "Lỗi " + errorBody, Toast.LENGTH_SHORT).show();
-                                        Log.d("zzzzzzzzzzzzzz", "onResponse: " + errorBody);
+
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }

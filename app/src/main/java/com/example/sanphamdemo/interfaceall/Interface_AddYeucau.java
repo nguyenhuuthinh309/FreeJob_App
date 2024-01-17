@@ -15,6 +15,10 @@ public interface Interface_AddYeucau {
     Call<RequestModel> confirmRequest(@Body ConfirmationRequest confirmationRequest);
     @FormUrlEncoded
     @POST("addyeucau")
-    Call<ServerResponse> addYeuCau(@Field("requestId") String requestId,@Field("trangthai") String trangthai,@Field("tencongty") String tencongty,@Field("giatien") String giatien);
+    Call<ServerResponse> addYeuCau(@Field("requestId") String requestId,
+
+                                   @Field("trangthai") String trangthai,
+                                   @Field("idUngVien") String idUngVien,
+                                   @Field("tencongty") String tencongty,@Field("giatien") String giatien);
 }
 

@@ -39,18 +39,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CongTyCuaToiFragment extends Fragment {
     MyAdapter2 adapter1;
     private ArrayList<Ban_User> arrayList = new ArrayList<>();
-    private LinearLayout linearLayout6,detail_congty;
+    private LinearLayout linearLayout6, detail_congty;
     private TextView tencongty;
     private TextView masothue1;
     private LinearLayout linearMore;
     private EditText textsearch;
     private ImageView imagesearch;
-    private TextView tvTitleViecTot,dangbai;
+    private TextView tvTitleViecTot, dangbai;
     private RecyclerView recyclerViewBaidang;
-      List<HoaDonCongTyy> mlist= new ArrayList<>();
-    List<Ban_User> mlist1= new ArrayList<>();
+    List<HoaDonCongTyy> mlist = new ArrayList<>();
+    List<Ban_User> mlist1 = new ArrayList<>();
     String a;
     String tencongt;
+
     public CongTyCuaToiFragment() {
         // Required empty public constructor
     }
@@ -83,19 +84,20 @@ public class CongTyCuaToiFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         linearLayout6 = (LinearLayout) view.findViewById(R.id.linearLayout6);
-        tencongty = (TextView)  view.findViewById(R.id.tencongty);
-        masothue1 = (TextView)  view.findViewById(R.id.masothue1);
-        linearMore = (LinearLayout)  view.findViewById(R.id.linearMore);
-        textsearch = (EditText)  view.findViewById(R.id.textsearch);
-        imagesearch = (ImageView)  view.findViewById(R.id.imagesearch);
-        tvTitleViecTot = (TextView)  view.findViewById(R.id.tvTitle_viecTot);
-        recyclerViewBaidang = (RecyclerView) view. findViewById(R.id.recyclerView_baidang);
+        tencongty = (TextView) view.findViewById(R.id.tencongty);
+        masothue1 = (TextView) view.findViewById(R.id.masothue1);
+        linearMore = (LinearLayout) view.findViewById(R.id.linearMore);
+        textsearch = (EditText) view.findViewById(R.id.textsearch);
+        imagesearch = (ImageView) view.findViewById(R.id.imagesearch);
+        tvTitleViecTot = (TextView) view.findViewById(R.id.tvTitle_viecTot);
+        recyclerViewBaidang = (RecyclerView) view.findViewById(R.id.recyclerView_baidang);
         detail_congty = view.findViewById(R.id.detail_congty);
         dangbai = view.findViewById(R.id.dangbai);
+        TextView tv = view.findViewById(R.id.tv);
 
         adapter1 = new MyAdapter2(getActivity());
         adapter1.setData((ArrayList<Ban_User>) mlist1);
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewBaidang.setLayoutManager(linearLayoutManager2);
         recyclerViewBaidang.setAdapter(adapter1);
 
@@ -103,11 +105,11 @@ public class CongTyCuaToiFragment extends Fragment {
         if (bundle != null) {
             // Lấy đối tượng UngVien từ Bundle
             UngVien ungVien = (UngVien) bundle.getSerializable("objungvien");
-             a = String.valueOf(ungVien.getIdHoaDonCongTy());
+            a = String.valueOf(ungVien.getIdHoaDonCongTy());
 
 
             if (ungVien != null) {
-                masothue1.setText("Mã Số Thuế : "+ a);
+                masothue1.setText("Mã Số Thuế : " + a);
 
             }
         }
@@ -128,14 +130,16 @@ public class CongTyCuaToiFragment extends Fragment {
                     for (HoaDonCongTyy myObject : ungVienResponse) {
 
 
-                      tencongty.setText(myObject.getTenCongTy());
-                      tencongt= myObject.getTenCongTy();
+                        tencongty.setText(myObject.getTenCongTy());
+                        tencongt = myObject.getTenCongTy();
 
 
                         detail_congty.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Bundle bundle = new Bundle();
+
+                                bundle.putString("idungvien", myObject.getIdUngVien());
                                 bundle.putString("tenct", myObject.getTenCongTy());
                                 bundle.putString("masothue", String.valueOf(myObject.getIdHoaDonCongTy()));
                                 bundle.putString("diachi", myObject.getDiaChi());
@@ -161,6 +165,7 @@ public class CongTyCuaToiFragment extends Fragment {
                                 bundle.putString("diachi", myObject.getDiaChi());
                                 bundle.putString("linhvuc", myObject.getLinhVuc());
                                 bundle.putString("kihan", myObject.getKiHan());
+                                bundle.putString("idUngVien",myObject.getIdUngVien());
 
                                 DangBaiFragment fragmentB = new DangBaiFragment();
                                 fragmentB.setArguments(bundle);
@@ -197,10 +202,13 @@ public class CongTyCuaToiFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Ban_User> ungVienResponse = response.body();
                     mlist1.addAll(ungVienResponse);
-                   adapter1.notifyDataSetChanged();
-                    Log.d("zzzzzzzzzzzzzzzzzz", "true"+mlist1.size()+"");
-                }else {
-                    Log.d("zzzzzzzzzzzzzzzzzz", "faile"+response.body());
+                    adapter1.notifyDataSetChanged();
+                    Log.d("zzzzzzzzzzzzzzzzzz", "true" + mlist1.size() + "");
+                } else {
+                    Log.d("zzzzzzzzzzzzzzzzzz", "faile" + response.body());
+                }
+                if (mlist1.size() == 0){
+                    tv.setText("Bạn chưa đăng tin nào!");
                 }
             }
 
@@ -214,6 +222,9 @@ public class CongTyCuaToiFragment extends Fragment {
         });
 
 
-
     }
+
+
+
+//
 }

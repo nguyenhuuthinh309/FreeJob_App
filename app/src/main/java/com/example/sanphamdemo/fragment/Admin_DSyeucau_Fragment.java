@@ -120,7 +120,6 @@ public class Admin_DSyeucau_Fragment extends Fragment  {
                 } else {
                     try {
                         String errorBody = response.errorBody().string();
-                        Toast.makeText(getContext(), "add thất bại: " + errorBody, Toast.LENGTH_SHORT).show();
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -130,8 +129,7 @@ public class Admin_DSyeucau_Fragment extends Fragment  {
 
             @Override
             public void onFailure(Call<List<RequestModel>> call, Throwable t) {
-                Toast.makeText(getContext(), " thất bại " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("zzzzzzzz",t.getMessage());
+
             }
         });
 

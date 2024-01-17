@@ -1,5 +1,7 @@
 package com.example.sanphamdemo.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +19,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.sanphamdemo.R;
+import com.example.sanphamdemo.user.UngVien;
 
 public class LapCongTyFragment extends Fragment {
     String selectedValue;
+    String a;
     public LapCongTyFragment() {
         // Required empty public constructor
     }
@@ -90,25 +95,38 @@ public class LapCongTyFragment extends Fragment {
              @Override
              public void onClick(View view) {
 
+                 Bundle bundle1 = getArguments();
+                 if (bundle1 != null) {
+                     // Lấy đối tượng UngVien từ Bundle
+                     UngVien ungVien = (UngVien) bundle1.getSerializable("objungvien");
+                     a = String.valueOf(ungVien.getIdUngVien());
 
 
-                 Bundle bundle = new Bundle();
-                 String masothuegui = masothue.getText().toString();
-                 String tengui = tenct.getText().toString();
-                 String diachigui = diachi.getText().toString();
-                 String linhvucgui = edtLinhVuc.getText().toString();
-                 String kihangui = selectedValue;
-                 bundle.putString("masothue",masothuegui);
-                 bundle.putString("tenct", tengui);
-                 bundle.putString("diachi", diachigui);
-                 bundle.putString("linhvuc", linhvucgui);
-                 bundle.putString("kihan", kihangui);
-                 ThongtinhoadonFragment fragment = new ThongtinhoadonFragment();
-                 fragment.setArguments(bundle);
-                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                 transaction.replace(R.id.container, fragment);
-                 transaction.addToBackStack(null); // Để có thể quay lại FragmentA
-                 transaction.commit();
+                     if (ungVien != null) {
+
+                         Bundle bundle = new Bundle();
+                         String masothuegui = masothue.getText().toString();
+                         String tengui = tenct.getText().toString();
+                         String diachigui = diachi.getText().toString();
+                         String linhvucgui = edtLinhVuc.getText().toString();
+                         String kihangui = selectedValue;
+                         bundle.putString("idUngVien",a);
+                         bundle.putString("masothue",masothuegui);
+                         bundle.putString("tenct", tengui);
+                         bundle.putString("diachi", diachigui);
+                         bundle.putString("linhvuc", linhvucgui);
+                         bundle.putString("kihan", kihangui);
+                         ThongtinhoadonFragment fragment = new ThongtinhoadonFragment();
+                         fragment.setArguments(bundle);
+                         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                         transaction.replace(R.id.container, fragment);
+                         transaction.addToBackStack(null); // Để có thể quay lại FragmentA
+                         transaction.commit();
+                     }
+                 }
+
+
+
              }
          });
 

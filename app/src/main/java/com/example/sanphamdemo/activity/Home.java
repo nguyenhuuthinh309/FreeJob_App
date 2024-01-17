@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sanphamdemo.R;
+import com.example.sanphamdemo.fragment.AdminThongKeFragment;
 import com.example.sanphamdemo.fragment.Admin_DSyeucau_Fragment;
 import com.example.sanphamdemo.fragment.CongTyCuaToiFragment;
 import com.example.sanphamdemo.fragment.HomeFragment;
@@ -86,15 +89,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.dsbaidang) {
-            replaceFragment(HomeFragment.newInstance());
-        } else if (item.getItemId() == R.id.lapct) {
-            replaceFragment(LapCongTyFragment.newInstance());
-        } else if (item.getItemId() == R.id.thongbao) {
-            replaceFragment(ThongBaoFragment.newInstance());
-        } else if (item.getItemId() == R.id.admin_danhsachyeucau) {
+
+        if (item.getItemId() == R.id.admin_danhsachyeucau) {
             replaceFragment(Admin_DSyeucau_Fragment.newInstance());
         }
+        if (item.getItemId() == R.id.admin_thongkethanhtoan) {
+            replaceFragment(AdminThongKeFragment.newInstance());
+        }
+
 
 
 
@@ -162,10 +164,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
 
                 if (item.getItemId() == R.id.bnav_home) {
-                    selectedFragment = new HomeFragment();
-                } else if (item.getItemId() == R.id.bnav_yeuThich) {
-                    selectedFragment = new YeuThichFragment();
-                } else if (item.getItemId() == R.id.bnav_khamPha) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("objungvien", ungVien);
+                    HomeFragment fragment = new HomeFragment();
+                    fragment.setArguments(bundle);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, fragment)
+                            .commit();
+                }
+                if (item.getItemId() == R.id.bnav_khamPha) {
                     Intent intent = getIntent();
                     Bundle bundle = intent.getExtras();
                     if (bundle != null) {
@@ -173,10 +180,16 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
                         if (ungVien != null) {
                        int check = ungVien.getIdHoaDonCongTy();
+                            if  (check == 0 ){
 
-                            if (check == 0 ){
-                                selectedFragment = new LapCongTyFragment();
-                                Toast.makeText(this, "chua co" , Toast.LENGTH_SHORT).show();
+                                Bundle bundle1 = new Bundle();
+                                bundle1.putSerializable("objungvien", ungVien);
+                                LapCongTyFragment fragment = new LapCongTyFragment();
+                                fragment.setArguments(bundle1);
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.container, fragment)
+                                        .commit();
+                               
 
 
                             }else{

@@ -17,34 +17,31 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.SuaProfileCongty"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SuaFrofileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SuabaidangActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.PhanhoiCVActivity"
             android:exported="false" />
         <activity
             android:name=".activity.Detail_CvtuyenDung"
             android:exported="false" />
         <activity
-            android:name=".activity.CheckFragmentt"
-            android:exported="false" />
-        <activity
-            android:name=".DangNhap"
+            android:name=".dangnhap.DangNhap"
             android:exported="false" />
         <activity
             android:name=".activity.Home"
             android:exported="false" />
         <activity
-            android:name=".activity.YeuThichActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ProfileActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.DetailItemBaiDang"
             android:exported="false" />
         <activity
-            android:name=".dangnhap.DangNhap"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ThongTinHoaDon"
+            android:name=".activity.DetailItemBaiDangCongty"
             android:exported="false" />
         <activity
             android:name=".activity.Test"
@@ -57,12 +54,6 @@
             android:exported="false" />
         <activity
             android:name=".dangnhap.DangKy"
-            android:exported="false" />
-        <activity
-            android:name=".activity.BangMenu"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ThucDonBan"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

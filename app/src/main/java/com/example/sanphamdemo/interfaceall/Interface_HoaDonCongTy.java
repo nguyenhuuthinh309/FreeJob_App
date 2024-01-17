@@ -20,10 +20,25 @@ public interface Interface_HoaDonCongTy {
             @Field("linhVuc") String linhVuc,
             @Field("kiHan") String kiHan,
            @Field("trangThai") String trangThai,
-            @Field("thanhTien") String thanhTien);
+            @Field("thanhTien") String thanhTien,
+            @Field("ngaytao")String ngaytao);
 
     @FormUrlEncoded
     @POST("/api/updatetrangthaihoadon/:idHoaDonCongTy")
-    Call<HoaDonCongTyy> updateHoaDon(@Field("idHoaDonCongTy") int idHoaDonCongTy );
+    Call<HoaDonCongTyy> update1(@Field("idHoaDonCongTy") int idHoaDonCongTy );
+
+
+    @FormUrlEncoded
+    @POST("deletehd/:id")
+    Call<HoaDonCongTyy> deletecongty(@Field("idHoaDonCongTy") int idHoaDonCongTy );
+
+    @FormUrlEncoded
+    @POST("suaprofilecongty")
+    Call<HoaDonCongTyy> updatethongtincongty(
+
+            @Field("idHoaDonCongTy") int idHoaDonCongTy,
+            @Field("diaChi") String diachi,
+            @Field("linhVuc") String linhvuc);
+
 
 }

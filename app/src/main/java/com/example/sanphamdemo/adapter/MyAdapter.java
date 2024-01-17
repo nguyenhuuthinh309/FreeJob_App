@@ -18,6 +18,7 @@ import com.example.sanphamdemo.activity.DetailItemBaiDang;
 import com.example.sanphamdemo.interfaceall.Interface_ListBan;
 import com.example.sanphamdemo.interfaceall.Interface_Sua;
 import com.example.sanphamdemo.user.Ban_User;
+import com.example.sanphamdemo.user.UngVien;
 import com.example.sanphamdemo.user.UpdateBan;
 
 import java.util.ArrayList;
@@ -38,12 +39,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserViewHoler>{
     public MyAdapter(Context context) {
 
         this.context = context;
+
     }
 
     public void setData(ArrayList<Ban_User> arrayList){
         this.arrayList = arrayList;
         notifyDataSetChanged();
     }
+
+
 
     @NonNull
     @Override
@@ -55,15 +59,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserViewHoler>{
     @Override
     public void onBindViewHolder(@NonNull UserViewHoler holder, int position) {
      final    Ban_User item = arrayList.get(position);
+    //    UngVien ungVien = dataListungvien.get(position);
+
         if(item == null) {
             return;
         }else {
-if (item.getTrangthai() ==1){
-    holder.btnaddlist.setBackgroundResource(R.drawable.likeheart);
-}
-            if (item.getTrangthai() ==0){
-                holder.btnaddlist.setBackgroundResource(R.drawable.heart_icon_xam);
-            }
 
             holder.btnaddlist.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -12,44 +12,20 @@
             android:title="Admin Quản Lý"
             android:checkable="false"
             android:enabled="false"/>
+
         <item
-            android:id="@+id/dsbaidang"
-            android:title="Bài Đăng"
+            android:id="@+id/admin_danhsachyeucau"
+            android:title="Phê Duyệt Công Ty"
             android:icon="@drawable/baseline_featured_play_list_24"
             />
 
         <item
-            android:id="@+id/lapct"
-            android:title="Công Ty"
+            android:id="@+id/admin_thongkethanhtoan"
+            android:title="Thống Kê Thanh Toán"
             android:icon="@drawable/baseline_featured_play_list_24"
             />
-        <item
-            android:id="@+id/admin_danhsachyeucau"
-            android:title="Phê Duyệt"
-            android:icon="@drawable/baseline_featured_play_list_24"
-            />
-        <item
-            android:id="@+id/thongbao"
-            android:title="Thông Báo"
-            android:icon="@drawable/baseline_featured_play_list_24"
-            />
+
     </group>
-    <group
-        android:id="@+id/group3"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/group_title3"
-            android:title="CÀI ĐẶT TÀI KHOẢN"
-            android:checkable="false"
-            android:enabled="false"/>
-        <item
-            android:id="@+id/nav_change_pass"
-            android:icon="@drawable/ic_pass"
-            android:title="@string/change_pass" />
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_exit"
-            android:title="@string/logout" />
-    </group>
+
 
 </menu>

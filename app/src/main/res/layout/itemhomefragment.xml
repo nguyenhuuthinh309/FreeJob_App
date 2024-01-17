@@ -98,7 +98,7 @@
 
                     android:textColor="@color/black"/>
                 <TextView
-                    android:background="@drawable/heart_icon_xam"
+
                     android:id="@+id/btn_add_to_list1"
                     android:layout_width="40dp"
                     android:layout_height="40dp"

@@ -5,10 +5,7 @@
         android:title="Trang chủ"
         android:icon="@drawable/home_icon_xam" />
 
-    <item
-        android:id="@+id/bnav_yeuThich"
-        android:title="Yêu Thích"
-        android:icon="@drawable/heart_icon_xam" />
+
 
     <item
 

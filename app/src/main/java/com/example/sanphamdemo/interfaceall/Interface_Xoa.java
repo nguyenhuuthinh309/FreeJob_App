@@ -11,4 +11,8 @@ public interface Interface_Xoa {
     @FormUrlEncoded
     @POST("/api/delitemban/:id")
     Call<DeleteBan> DelListProduct1(@Field("id")int id);
+
+    @FormUrlEncoded
+    @POST("deleteban")
+    Call<DeleteBan> DelleteIdhoaDongCongty(@Field("idHoaDonCongTy")String idHoaDonCongTy);
 }
